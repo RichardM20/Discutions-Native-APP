@@ -6,4 +6,5 @@
     </style>
 
     <style name="Theme.DiscutionsApp" parent="Base.Theme.DiscutionsApp" />
+
 </resources>
