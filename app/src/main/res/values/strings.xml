@@ -9,7 +9,7 @@
     <string name="previous">Previous</string>
     <string name="login_text">Login</string>
     <string name="register_text">Register</string>
-    <string name="not_account_text">"Don't have account"</string>
+    <string name="not_account_text">"Don't have account ?"</string>
     <string name="email_hint_text">user@email.com</string>
     <string name="password_hint_text">****</string>
     <string name="wront_email_text">Enter a valid email</string>
