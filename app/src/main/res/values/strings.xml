@@ -26,4 +26,5 @@
     <string name="remember_text">Remember me</string>
     <string name="ic_google_svg">icon google</string>
     <string name="ic_facebook_svg">icon facebook</string>
+    <string name="accept_text">Accept</string>
 </resources>

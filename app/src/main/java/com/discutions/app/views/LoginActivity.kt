@@ -1,37 +1,40 @@
 package com.discutions.app.views
-
+import android.content.DialogInterface
 import android.os.Bundle
+
 import android.util.Patterns
-import android.widget.Toast
+
 import androidx.activity.ComponentActivity
-import com.discutions.app.R
+import androidx.appcompat.app.AlertDialog
+import com.discutions.app.controllers.LoginController
 import com.discutions.app.databinding.ActivityLoginBinding
-import java.util.regex.Pattern
+import com.discutions.app.utils.Dialogs
+
 
 class LoginActivity : ComponentActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var _loginController: LoginController
+    private  lateinit var _dialog: Dialogs
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityLoginBinding.inflate(layoutInflater);
-        setContentView(R.layout.activity_login);
-        binding.emailField.setOnFocusChangeListener { _, focused ->
-            if(!focused){
-                println("Focused");
-            }
-            println("None");
-        }
-        binding.loginButton.setOnClickListener {
-            validateEmail();
-            Toast.makeText(this, "E Form", Toast.LENGTH_SHORT).show()
-        }
-    }
+        super.onCreate(savedInstanceState)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        _loginController = LoginController();
+        _dialog = Dialogs();
+        //
+        setContentView(binding.root)
 
-    private fun validateEmail():String?{
-        val emailTextValue = binding.emailField.text.toString().trim();
-        if(!Patterns.EMAIL_ADDRESS.matcher(emailTextValue).matches()){
-            println("Please enter a valid email");
+//        events
+        binding.loginButton.setOnClickListener {
+            val email = binding.emailField.text.toString()
+            val password = binding.passwordField.text.toString()
+            //pass credential
+            val isValidCredentials = _loginController.onLoginButtonClick(email, password)
+            if (isValidCredentials) {
+                _dialog.showDialog(this, "Information", "Success form")
+            } else {
+                _dialog.showDialog(this, "Information", "Email or password invalid");
+            }
         }
-        return null;
     }
 }

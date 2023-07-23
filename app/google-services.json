@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "968779206986",
+    "project_id": "discutions-app-native",
+    "storage_bucket": "discutions-app-native.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968779206986:android:ce7f929e1035156d80f1b3",
+        "android_client_info": {
+          "package_name": "com.discutions.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968779206986-rrqr2otbjqq7pmgom51giaq19t0g224l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.discutions.app",
+            "certificate_hash": "faa22fd21beab7e254cae71c4060bd45a02d3b31"
+          }
+        },
+        {
+          "client_id": "968779206986-f62nvkh936hqp3f4s5bg3eob106club4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbXaCVV2jFGjXuXoXaMHSSW6giHotRyYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968779206986-f62nvkh936hqp3f4s5bg3eob106club4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

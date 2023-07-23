@@ -1,137 +1,112 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-
-
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="20dp">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="204dp"
-        android:layout_height="214dp"
-        android:background="@mipmap/ic_discutions_foreground"
-        android:contentDescription="@string/ic_google_svg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:translationY="-10dp"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="101dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.32"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+    <ScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="35dp"
+        android:paddingVertical="5dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:fadeScrollbars="true"
+        android:overScrollMode="never">
+        <LinearLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/inter_bold"
             android:gravity="center"
-            android:text="@string/login_text"
-            android:textColor="@color/primary_dark_color"
-            android:textSize="30sp" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailField"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_input"
-            android:ems="10"
-            android:fontFamily="@font/inter_regular"
-            android:hint="@string/email_hint_text"
-            android:inputType="textEmailAddress"
-            android:paddingVertical="18dp" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordField"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/rounded_input"
-            android:drawableEnd="@drawable/visivility"
-            android:ems="10"
-            android:fontFamily="@font/inter_regular"
-            android:hint="@string/password_hint_text"
-            android:inputType="textPassword"
-            android:paddingVertical="15dp" />
-
-        <CheckBox
-            android:id="@+id/rememberCheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:fontFamily="@font/inter_medium"
-
-            android:text="@string/remember_text" />
-
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="13dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/button_shadow"
-            android:fontFamily="@font/inter_semi_bold"
-            android:rotationX="0"
-            android:text="@string/login_text"
-            android:textColor="@color/default_text_dark_color"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/inter_medium"
-            android:text="@string/not_account_text"
-            android:textColor="@color/grey_color" />
-
-        <Button
-            android:id="@+id/registerButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="13dp"
-            android:background="@drawable/button_shadow"
-            android:fontFamily="@font/inter_semi_bold"
-            android:text="@string/register_text"
-            android:textColor="@color/default_text_dark_color"
-            android:textSize="18sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="25dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/googleButton"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/ic_google"
+            android:orientation="vertical">
+            <ImageView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:background="@mipmap/ic_discutions_foreground"
                 android:contentDescription="@string/ic_google_svg" />
+            <TextView android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="center"
+                android:text="@string/login_text"
+                android:textColor="@color/primary_dark_color"
+                android:textSize="30sp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_input"
+                android:ems="10"
+                android:fontFamily="@font/inter_regular"
+                android:hint="@string/email_hint_text"
+                android:inputType="textEmailAddress"
+                android:paddingVertical="18dp" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/rounded_input"
+                android:drawableEnd="@drawable/visivility"
+                android:ems="10"
+                android:fontFamily="@font/inter_regular"
+                android:hint="@string/password_hint_text"
+                android:inputType="textPassword"
+                android:paddingVertical="15dp" />
+
+            <CheckBox android:id="@+id/rememberCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:fontFamily="@font/inter_medium"
+                android:text="@string/remember_text" />
+
+            <Button android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="13dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button_shadow"
+                android:fontFamily="@font/inter_semi_bold"
+                android:text="@string/login_text"
+                android:textColor="@color/default_text_dark_color"
+                android:textSize="20sp"
+                />
+
+            <TextView android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="@string/not_account_text"
+                android:textColor="@color/grey_color" />
+
+            <Button android:id="@+id/registerButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="13dp"
+                android:background="@drawable/button_shadow"
+                android:fontFamily="@font/inter_semi_bold"
+                android:text="@string/register_text"
+                android:textColor="@color/default_text_dark_color"
+                android:textSize="18sp" />
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="25dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageView android:id="@+id/googleButton"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/ic_google"
+                    android:contentDescription="@string/ic_google_svg" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>
