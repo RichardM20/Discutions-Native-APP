@@ -1,40 +1,45 @@
 package com.discutions.app.views
-import android.content.DialogInterface
 import android.os.Bundle
 
-import android.util.Patterns
-
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AlertDialog
 import com.discutions.app.controllers.LoginController
 import com.discutions.app.databinding.ActivityLoginBinding
+import com.discutions.app.interfaces.LoginStateListerner
 import com.discutions.app.utils.Dialogs
 
 
-class LoginActivity : ComponentActivity() {
+class LoginActivity : ComponentActivity(), LoginStateListerner {
 
-    private lateinit var binding: ActivityLoginBinding
-    private lateinit var _loginController: LoginController
-    private  lateinit var _dialog: Dialogs
+    private lateinit var _binding: ActivityLoginBinding
+    private val _loginController:LoginController = LoginController();
+    private  val _dialog: Dialogs = Dialogs();
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        _loginController = LoginController();
-        _dialog = Dialogs();
-        //
-        setContentView(binding.root)
-
+        _binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
 //        events
-        binding.loginButton.setOnClickListener {
-            val email = binding.emailField.text.toString()
-            val password = binding.passwordField.text.toString()
-            //pass credential
-            val isValidCredentials = _loginController.onLoginButtonClick(email, password)
+       loginButtonClick();
+    }
+  private fun  loginButtonClick(){
+        _binding.loginButton.setOnClickListener {
+            _loginController.email = _binding.emailField.text.toString()
+            _loginController.password = _binding.passwordField.text.toString()
+
+            val isValidCredentials = _loginController.validateForm();
             if (isValidCredentials) {
-                _dialog.showDialog(this, "Information", "Success form")
+                _loginController.loginWithEmailAndPassword(this);
             } else {
                 _dialog.showDialog(this, "Information", "Email or password invalid");
             }
         }
+    }
+    override fun onLoginSuccess() {
+        println("Success login");
+    }
+
+    override fun onLoginFailed(errorMessage: String) {
+        println("exception login");
+        return _dialog.showDialog(this, "Information", errorMessage);
     }
 }
