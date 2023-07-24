@@ -7,7 +7,7 @@ class Dialogs {
     fun showDialog(context:android.content.Context, title: String, message: String) {
         val dialogBuilder = AlertDialog.Builder(context)
         dialogBuilder.setMessage(message)
-            .setNegativeButton("Cancel", DialogInterface.OnClickListener {
+            .setPositiveButton("Accept", DialogInterface.OnClickListener {
                     _, _ -> dialogBuilder.create().dismiss()
             });
         val alert = dialogBuilder.create()

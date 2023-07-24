@@ -38,8 +38,11 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
         println("Success login");
     }
 
+    override fun onLoginCancel() {
+       return _dialog.showDialog(this,"Information","La operacion se cancelo inesperadamente");
+    }
+
     override fun onLoginFailed(errorMessage: String) {
-        println("exception login");
-        return _dialog.showDialog(this, "Information", errorMessage);
+        return _dialog.showDialog(this, "Failed", errorMessage);
     }
 }
