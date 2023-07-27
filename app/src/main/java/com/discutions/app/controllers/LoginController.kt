@@ -13,7 +13,7 @@ class LoginController {
     }
 
     private fun isValidPassword(): Boolean {
-        return password.length >= 4
+        return password.length >= 6
     }
     fun validateForm( ):Boolean {
         return isValidEmail() && isValidPassword( )

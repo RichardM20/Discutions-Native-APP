@@ -39,7 +39,18 @@ class FirebaseServices {
                 }
             }
       }
-
+    fun registerWithEmailAndPassword(email: String, password: String,callback:(String?)->Unit) {
+        _auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                    result->
+                if(result.isSuccessful){
+                    callback("Success");
+                } else {
+                    val message = _response.isException(result.exception!!);
+                    callback(message);
+                }
+            }
+    }
 
 
     fun signInWithGoogle(idToken: String, callback: (Result<FirebaseUser?>) -> Unit) {

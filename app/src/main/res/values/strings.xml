@@ -11,7 +11,9 @@
     <string name="register_text">Register</string>
     <string name="not_account_text">"Don't have account ?"</string>
     <string name="email_hint_text">user@email.com</string>
-    <string name="password_hint_text">****</string>
+    <string name="password_hint_text">123456</string>
+    <string name="enter_password_text">Enter a password</string>
+    <string name="confirm_password_text">Confirm a password</string>
     <string name="wront_email_text">Enter a valid email</string>
     <string name="wront_password_text">Enter a valid password</string>
     <string name="back_text">Back</string>
@@ -28,7 +30,9 @@
     <string name="ic_facebook_svg">icon facebook</string>
     <string name="accept_text">Accept</string>
     <string name="loading_text">Loading</string>
+
     <!--credentials-->
     <string name="default_client_web_id">968779206986-606peom2r5vetnf9p41pfpc4a0av3g0b.apps.googleusercontent.com</string>
+    <string name="title_activity_register">RegisterActivity</string>
 
 </resources>

@@ -19,6 +19,7 @@ import kotlinx.coroutines.runBlocking
 
 class LoginActivity : ComponentActivity(), LoginStateListerner {
 
+    //creamos las instancias
     private lateinit var _binding: ActivityLoginBinding
     private val _loginController:LoginController = LoginController();
     private lateinit var googleSignInClient: GoogleSignInClient;
@@ -28,22 +29,25 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(_binding.root)
+        //inicializamos
+        _binding = ActivityLoginBinding.inflate(layoutInflater) //le indicamos que  xml dibujara en pocas palabras
+        setContentView(_binding.root)//indicamos muestre  xml indicado previamente
         _loadingDialog= LoadingDialog(this, Dialog(this));
 
-        //
+        //servicio de google
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        //events
+        //eventos de botones
         loginButtonEvent();
         googleIconEvent();
+        navigateToRegister();
     }
     private  fun loginButtonEvent(){
+        //indicamos cuando ocurrira el evento, en este caso al dar click
         _binding.loginButton.setOnClickListener {
             _loginController.email = _binding.emailField.text.toString()
             _loginController.password = _binding.passwordField.text.toString()
@@ -55,7 +59,12 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
             }
         }
     }
-
+     private  fun navigateToRegister(){
+         _binding.registerButton.setOnClickListener {
+             startActivity(Intent(applicationContext, RegisterActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+         }
+     }
     private fun googleIconEvent(){
         _binding.googleButton.setOnClickListener {
             val signInIntent = googleSignInClient.signInIntent
@@ -63,10 +72,15 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
         }
     }
     override fun onLoginSuccess() {
-        println("Success login");
+        //emitimos el evento que sucedio
+        //navegamos a la pantalla indicada
+//        startActivity(Intent(applicationContext, RegisterActivity::class.java))
+        //animacion de paso
+//        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
     override fun onLoading(showLoading: Boolean) {
+        //escuchamos los cambios
       if(showLoading){
           _loadingDialog.showLoadingDialog("Loading");
       }else{
@@ -75,9 +89,11 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
     }
 
     override fun onLoginFailed(errorMessage: String) {
+        //en caso de que salga algo mal mostramos el mensaje del error
         return _dialog.showDialog(this, "Failed", errorMessage);
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        //resultado del intento de inicio de sesion con google para obtener el tokenID
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -85,11 +101,15 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
                 val account = task.getResult(ApiException::class.java)
                 val idToken = account?.idToken
                 if (idToken != null) {
+                    //pasamos el token obtenido para iniciar asi sesion con firebase (Google)
                     _loginController.loginWithGoogle(idToken,this);
                 } else {
+                    //indcamos el error
+                    //tener en cuenta que no muestro el error en el oyente ya que esta separado obviamente
                     _dialog.showDialog(this,"Error","Could not get GoogleToken")
                 }
             } catch (e: ApiException) {
+                //capturamos el error para mostrarlo
                 _dialog.showDialog(this,"Error","Code: ${e.statusCode}\nStatus: ${e.status}\nErr: ${e.message}");
             }
         }
