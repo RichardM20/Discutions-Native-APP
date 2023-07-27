@@ -19,7 +19,28 @@ class LoginController {
         return isValidEmail() && isValidPassword( )
     }
 
-    fun loginWithEmailAndPassword(listener: LoginStateListerner){
-            firebaseServices.loginWithEmailAndPassword(email, password,listener);
+      fun loginWithEmailAndPassword(listener: LoginStateListerner){
+          listener.onLoading(true);
+          firebaseServices.loginWithEmailAndPassword(email, password){
+              result->
+              if(result!="Success"){
+                  listener.onLoginFailed(result!!);
+              }else{
+                  listener.onLoginSuccess();
+              }
+              listener.onLoading(false);
+          }
     }
+    fun loginWithGoogle(idToken: String,listener: LoginStateListerner) {
+        listener.onLoading(true);
+        firebaseServices.signInWithGoogle(idToken) { result ->
+            if (result=="success") {
+               listener.onLoginSuccess();
+            } else {
+                listener.onLoginFailed(result);
+            }
+            listener.onLoading(false);
+        }
+    }
+
 }

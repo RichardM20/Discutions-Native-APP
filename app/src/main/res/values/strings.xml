@@ -4,7 +4,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-<!--    String used for all app-->
+    <!--String used for all app-->
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="login_text">Login</string>
@@ -27,4 +27,7 @@
     <string name="ic_google_svg">icon google</string>
     <string name="ic_facebook_svg">icon facebook</string>
     <string name="accept_text">Accept</string>
+    <!--credentials-->
+    <string name="default_client_web_id">968779206986-606peom2r5vetnf9p41pfpc4a0av3g0b.apps.googleusercontent.com</string>
+
 </resources>

@@ -1,10 +1,19 @@
 package com.discutions.app.models
 
 import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseUser
 import java.lang.Exception
+data class AuthResponse(
+    val user:UserData?,
+    val errorMessage:String?
+)
 
-class FirebaseResponses {
-    fun authResponse(ex:Exception?):String?{
+data class UserData(
+    val uid:String?,
+    val email:String?
+)
+class ExceptionMessage {
+    fun isException(ex: Exception):String?{
         return when (ex) {
             is FirebaseAuthException -> {
                 when (ex.errorCode) {
