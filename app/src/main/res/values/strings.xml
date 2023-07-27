@@ -27,6 +27,7 @@
     <string name="ic_google_svg">icon google</string>
     <string name="ic_facebook_svg">icon facebook</string>
     <string name="accept_text">Accept</string>
+    <string name="loading_text">Loading</string>
     <!--credentials-->
     <string name="default_client_web_id">968779206986-606peom2r5vetnf9p41pfpc4a0av3g0b.apps.googleusercontent.com</string>
 

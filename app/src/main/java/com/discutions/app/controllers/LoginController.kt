@@ -34,12 +34,20 @@ class LoginController {
     fun loginWithGoogle(idToken: String,listener: LoginStateListerner) {
         listener.onLoading(true);
         firebaseServices.signInWithGoogle(idToken) { result ->
-            if (result=="success") {
-               listener.onLoginSuccess();
-            } else {
-                listener.onLoginFailed(result);
-            }
-            listener.onLoading(false);
+           result.fold(
+               onSuccess = {user->
+                   if(user!=null){
+                       listener.onLoginSuccess();
+                   }else{
+                       listener.onLoginFailed("User not found or not exist")
+                   }
+                   listener.onLoading(false);
+               },
+               onFailure = {exception ->
+                   listener.onLoginFailed(exception.message!!)
+                   listener.onLoading(false);
+               }
+           )
         }
     }
 

@@ -26,9 +26,6 @@ import kotlin.concurrent.timerTask
 class FirebaseServices {
     private var _auth:FirebaseAuth = Firebase.auth
     private val _response = ExceptionMessage();
-
-
-
     //methods
       fun loginWithEmailAndPassword(email: String, password: String,callback:(String?)->Unit) {
         _auth.signInWithEmailAndPassword(email, password)
@@ -45,11 +42,15 @@ class FirebaseServices {
 
 
 
-    fun signInWithGoogle(idToken: String, callback: (String) -> Unit) {
+    fun signInWithGoogle(idToken: String, callback: (Result<FirebaseUser?>) -> Unit) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         _auth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
-               if(task.isSuccessful) callback("Success") else callback(task.exception?.message!!);
+               if(task.isSuccessful){
+                   callback(Result.success(task.result.user))
+               }  else{
+                   callback(Result.failure(task.exception!!));
+               }
             }
     }
 }

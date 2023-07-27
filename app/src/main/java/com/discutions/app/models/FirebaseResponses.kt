@@ -20,7 +20,6 @@ class ExceptionMessage {
                     "ERROR_INVALID_EMAIL" -> "Incorrect invalid"
                     "ERROR_WRONG_PASSWORD" -> "Incorrect password."
                     "ERROR_USER_NOT_FOUND" -> "Incorrect email or password"
-
                     else -> "Error unknown: ${ex.errorCode}"
                 }
             }
