@@ -39,8 +39,8 @@ class RegisterController {
           listener.onLoading(true);
           firebaseServices.registerWithEmailAndPassword(email, password){
               result->
-              if(result!="Success"){
-                  listener.onRegisterFailed(result!!);
+              if(result?.errorMessage!=null){
+                  listener.onRegisterFailed(result.errorMessage);
               }else{
                   listener.onRegisterSuccess();
               }

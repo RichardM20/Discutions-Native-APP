@@ -9,6 +9,7 @@
     <string name="previous">Previous</string>
     <string name="login_text">Login</string>
     <string name="register_text">Register</string>
+    <string name="logout_text">Logout</string>
     <string name="not_account_text">"Don't have account ?"</string>
     <string name="email_hint_text">user@email.com</string>
     <string name="password_hint_text">123456</string>
@@ -34,5 +35,10 @@
     <!--credentials-->
     <string name="default_client_web_id">968779206986-606peom2r5vetnf9p41pfpc4a0av3g0b.apps.googleusercontent.com</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
 
 </resources>

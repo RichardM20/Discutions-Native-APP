@@ -19,7 +19,7 @@
             <ImageView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:background="@mipmap/ic_discutions_foreground"
+                android:background="@drawable/discussion"
                 android:contentDescription="@string/ic_google_svg" />
             <TextView android:id="@+id/textView2"
                 android:layout_width="match_parent"

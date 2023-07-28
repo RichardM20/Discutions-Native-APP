@@ -1,4 +1,4 @@
-package com.discutions.app.views
+package com.discutions.app.views.register
 
 import android.app.Dialog
 import android.content.Intent
@@ -9,7 +9,10 @@ import com.discutions.app.controllers.RegisterController
 import com.discutions.app.databinding.ActivityRegisterBinding
 import com.discutions.app.interfaces.RegisterStateListener
 import com.discutions.app.utils.Dialogs
+import com.discutions.app.utils.GenericToast
 import com.discutions.app.utils.LoadingDialog
+import com.discutions.app.views.dashboard.DashboardActivity
+import com.discutions.app.views.login.LoginActivity
 
 
 class RegisterActivity : ComponentActivity(), RegisterStateListener {
@@ -60,7 +63,10 @@ class RegisterActivity : ComponentActivity(), RegisterStateListener {
     }
 
     override fun onRegisterSuccess() {
-       println("Registration success");
+        GenericToast.showToast(this,"Successful registration",false);
+        startActivity(Intent(applicationContext, DashboardActivity::class.java))
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        finish();
     }
 
     override fun onLoading(showLoading: Boolean) {

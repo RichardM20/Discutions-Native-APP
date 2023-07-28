@@ -1,40 +1,43 @@
-package com.discutions.app.views
+package com.discutions.app.views.login
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-
 import androidx.activity.ComponentActivity
 import com.discutions.app.R
 import com.discutions.app.controllers.LoginController
 import com.discutions.app.databinding.ActivityLoginBinding
 import com.discutions.app.interfaces.LoginStateListerner
+import com.discutions.app.models.UserPreferences
 import com.discutions.app.utils.Dialogs
+import com.discutions.app.utils.GenericToast
 import com.discutions.app.utils.LoadingDialog
+import com.discutions.app.views.register.RegisterActivity
+import com.discutions.app.views.dashboard.DashboardActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import kotlinx.coroutines.runBlocking
 
 
 class LoginActivity : ComponentActivity(), LoginStateListerner {
 
     //creamos las instancias
     private lateinit var _binding: ActivityLoginBinding
-    private val _loginController:LoginController = LoginController();
+    private lateinit var _loginController:LoginController;
     private lateinit var googleSignInClient: GoogleSignInClient;
-    private  val _dialog: Dialogs = Dialogs();
+    private lateinit var _dialog: Dialogs;
     private lateinit var  _loadingDialog:LoadingDialog;
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //inicializamos
-        _binding = ActivityLoginBinding.inflate(layoutInflater) //le indicamos que  xml dibujara en pocas palabras
-        setContentView(_binding.root)//indicamos muestre  xml indicado previamente
+        _binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(_binding.root);
+        _dialog=Dialogs();
+        _loginController=LoginController(UserPreferences(this));
         _loadingDialog= LoadingDialog(this, Dialog(this));
 
-        //servicio de google
+        //servicios
+        getRemember();
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -42,17 +45,34 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         //eventos de botones
+        checkBoxEvent();
         loginButtonEvent();
         googleIconEvent();
         navigateToRegister();
     }
+   private fun getRemember(){
+        if(_loginController.preferences.remember==true){
+            _binding.passwordField.setText(_loginController.preferences.password);
+            _binding.emailField.setText(_loginController.preferences.email);
+            _binding.rememberCheckbox.isChecked=true;
+        }
+    }
+
+    private fun checkBoxEvent(){
+        _binding.rememberCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            _loginController.preferences.remember = isChecked
+        }
+    }
     private  fun loginButtonEvent(){
-        //indicamos cuando ocurrira el evento, en este caso al dar click
+
         _binding.loginButton.setOnClickListener {
+            if(_loginController.preferences.remember==true){
+                _loginController.preferences.email = _binding.emailField.text.toString()
+                _loginController.preferences.password = _binding.passwordField.text.toString()
+            }
             _loginController.email = _binding.emailField.text.toString()
             _loginController.password = _binding.passwordField.text.toString()
-            val isValidCredentials = _loginController.validateForm();
-            if (isValidCredentials) {
+            if (_loginController.validateForm()) {
                 _loginController.loginWithEmailAndPassword(this)
             } else {
                 _dialog.showDialog(this, "Information", "Email or password invalid");
@@ -71,12 +91,11 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
     }
-    override fun onLoginSuccess() {
-        //emitimos el evento que sucedio
-        //navegamos a la pantalla indicada
-//        startActivity(Intent(applicationContext, RegisterActivity::class.java))
-        //animacion de paso
-//        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    override fun onLoginSuccess(username: String?) {
+        GenericToast.showToast(this,"Welcome $username",true);
+        startActivity(Intent(applicationContext, DashboardActivity::class.java))
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        finish();//finalizamos
     }
 
     override fun onLoading(showLoading: Boolean) {
@@ -88,9 +107,9 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
       }
     }
 
-    override fun onLoginFailed(errorMessage: String) {
+    override fun onLoginFailed(err: String) {
         //en caso de que salga algo mal mostramos el mensaje del error
-        return _dialog.showDialog(this, "Failed", errorMessage);
+        return _dialog.showDialog(this, "Failed", err);
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //resultado del intento de inicio de sesion con google para obtener el tokenID

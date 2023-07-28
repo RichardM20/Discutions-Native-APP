@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.DiscutionsApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/primary_dark_color</item>
+        <item name="colorPrimary">@color/primary_dark_color</item>
     </style>
 
     <style name="Theme.DiscutionsApp" parent="Base.Theme.DiscutionsApp" />
@@ -10,6 +10,7 @@
     <style name="MaterialAlertDialog_rounded" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
     </style>
+
     <style name="DialogCorners">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>
