@@ -17,9 +17,12 @@ class ExceptionMessage {
         return when (ex) {
             is FirebaseAuthException -> {
                 when (ex.errorCode) {
-                    "ERROR_INVALID_EMAIL" -> "Incorrect invalid"
                     "ERROR_WRONG_PASSWORD" -> "Incorrect password."
                     "ERROR_USER_NOT_FOUND" -> "Incorrect email or password"
+                    "ERROR_WEAK_PASSWORD" -> "Weak password. It must be at least 6 characters long."
+                    "ERROR_INVALID_EMAIL" -> "Invalid email address."
+                    "ERROR_EMAIL_ALREADY_IN_USE" -> "The email address is already in use by another user."
+                    "ERROR_OPERATION_NOT_ALLOWED" -> "Account creation is not allowed at this time."
                     else -> "Error unknown: ${ex.errorCode}"
                 }
             }

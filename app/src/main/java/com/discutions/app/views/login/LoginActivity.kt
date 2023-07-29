@@ -11,8 +11,8 @@ import com.discutions.app.models.UserPreferences
 import com.discutions.app.utils.Dialogs
 import com.discutions.app.utils.GenericToast
 import com.discutions.app.utils.LoadingDialog
-import com.discutions.app.views.register.RegisterActivity
 import com.discutions.app.views.dashboard.DashboardActivity
+import com.discutions.app.views.register.RegisterActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -129,7 +129,7 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
                 }
             } catch (e: ApiException) {
                 //capturamos el error para mostrarlo
-                _dialog.showDialog(this,"Error","Code: ${e.statusCode}\nStatus: ${e.status}\nErr: ${e.message}");
+                _dialog.showDialog(this,"Error","Operation has been cancelled");
             }
         }
     }

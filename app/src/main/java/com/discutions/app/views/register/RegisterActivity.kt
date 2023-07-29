@@ -44,26 +44,20 @@ class RegisterActivity : ComponentActivity(), RegisterStateListener {
            _registerController.email = _binding.emailField.text.toString()
            _registerController.password = _binding.passwordField.text.toString()
            _registerController.confirmPassword = _binding.confirmPasswordField.text.toString()
-           _registerController.validateForm {
-                   formState->
-               println("form state:$formState");
-               when (formState) {
-                   "invalid-form" -> {
-                       _dialog.showDialog(this,"Information","Email or password invalid");
-                   }
-                   "different-password" -> {
-                       _dialog.showDialog(this,"Information","Passwords do not match");
-                   }
-                   else -> {
-                       _registerController.registerWithEmailAndPassword(this);
-                   }
-               }
+           //
+           _registerController.validateForm {message->
+                if(message!="valid-form") {
+                    _dialog.showDialog(this,"Information","$message");
+                }else{
+                    _registerController.registerWithEmailAndPassword(this);
+                }
            }
        }
     }
 
+
     override fun onRegisterSuccess() {
-        GenericToast.showToast(this,"Successful registration",false);
+        GenericToast.showToast(this,"Successful registration",true);
         startActivity(Intent(applicationContext, DashboardActivity::class.java))
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         finish();

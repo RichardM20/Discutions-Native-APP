@@ -25,12 +25,12 @@ class RegisterController {
     }
     fun validateForm(callback:(String?)->Unit)  {
         if(!isDifferentPassword()){
-           callback("different-password");
+           callback("Passwords do not match");
         }else{
             if(isValidEmail() && isValidPassword()){
                 callback("valid-form")
             }else{
-                callback("invalid-form")
+                callback("Email or password invalid")
             }
         }
     };

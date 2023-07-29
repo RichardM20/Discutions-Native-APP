@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:id="@+id/containerScreen"
     android:layout_width="match_parent"
-    android:gravity="center"
-    android:layout_height="match_parent">
-    <Button
-        android:id="@+id/buttonLogout"
-        android:background="@drawable/rounded_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/default_text_dark_color"
-        android:fontFamily="@font/inter_bold"
-        android:text="@string/logout_text"
-        />
-</LinearLayout>
+    android:layout_height="match_parent"
+    android:layout_above="@+id/bottomNavbar"
+    tools:context=".views.dashboard.DashboardActivity">
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavbar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            app:menu="@menu/bottom_navigation_bar_menu"
+            android:scrollIndicators="left">
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </FrameLayout>

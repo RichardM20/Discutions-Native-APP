@@ -20,16 +20,13 @@ class SplashActivity : ComponentActivity() {
         redirect();
     }
     private fun redirect(){
-        println("Nav screen");
+
         Timer().schedule(timerTask {
             if(_prefs.isLogegd==false){
-                println("logged");
                 startActivity(Intent(applicationContext, LoginActivity::class.java))
             }else{
-                println("not logged");
                 startActivity(Intent(applicationContext, DashboardActivity::class.java))
             }
-            println("log state: ${_prefs.isLogegd}");
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }, 2000)

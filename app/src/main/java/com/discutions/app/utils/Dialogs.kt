@@ -32,9 +32,11 @@ class LoadingDialog{
     fun showLoadingDialog(title: String){
         dialog = Dialog(context);
         dialog.setContentView(R.layout.loading_dialog)
+
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         var loadingText = dialog.findViewById<TextView>(R.id.loadingText);
         loadingText.text = title;
+        dialog.setCanceledOnTouchOutside(false)
         dialog.create();
         dialog.show();
     }

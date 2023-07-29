@@ -31,6 +31,15 @@
     <string name="ic_facebook_svg">icon facebook</string>
     <string name="accept_text">Accept</string>
     <string name="loading_text">Loading</string>
+    <string name="profile_text">Profile</string>
+    <string name="create_text">Create</string>
+    <string name="create_discussion_text">Create discussion</string>
+    <string name="delete_text">Delete</string>
+    <string name="like_text">Like</string>
+    <string name="comment_text">Comment</string>
+    <string name="send_text">Send</string>
+    <string name="home_text">Home</string>
+
 
     <!--credentials-->
     <string name="default_client_web_id">968779206986-606peom2r5vetnf9p41pfpc4a0av3g0b.apps.googleusercontent.com</string>
@@ -40,5 +49,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_activity_bottom_navigation_bar">BottomNAvigationBar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
