@@ -6,9 +6,11 @@
     android:id="@+id/containerScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:layout_above="@+id/bottomNavbar"
     tools:context=".views.dashboard.DashboardActivity">
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:background="@color/default_text_dark_color"
             android:id="@+id/bottomNavbar"
             android:layout_width="match_parent"
             android:layout_height="60dp"

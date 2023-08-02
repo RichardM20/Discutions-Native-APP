@@ -39,6 +39,7 @@
     <string name="comment_text">Comment</string>
     <string name="send_text">Send</string>
     <string name="home_text">Home</string>
+    <string name="heart_text">Heart</string>
 
 
     <!--credentials-->

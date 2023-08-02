@@ -1,24 +1,23 @@
 package com.discutions.app.views.dashboard
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.discutions.app.R
-import com.discutions.app.controllers.DashboardController
-import com.discutions.app.databinding.ActivityDashboardBinding
 
+import com.discutions.app.R
+
+import com.discutions.app.databinding.ActivityDashboardBinding
 import com.discutions.app.models.UserPreferences
 import com.discutions.app.views.dashboard.ui.create.CreateFragment
 import com.discutions.app.views.dashboard.ui.home.HomeFragment
 import com.discutions.app.views.dashboard.ui.profile.ProfileFragment
-
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class DashboardActivity : ComponentActivity()  {
+class DashboardActivity : AppCompatActivity()  {
 
     private lateinit var _binding: ActivityDashboardBinding
-    private lateinit var _dashboardController:DashboardController;
+
     private lateinit var bottomNav : BottomNavigationView;
 
 
@@ -29,9 +28,9 @@ class DashboardActivity : ComponentActivity()  {
         //
         _binding = ActivityDashboardBinding.inflate(layoutInflater) ;
         setContentView(_binding.root)
-        _dashboardController= DashboardController(UserPreferences(this));
+
         loadFragment(HomeFragment());
-        bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavbar)
+        bottomNav = findViewById(R.id.bottomNavbar)
         //
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
@@ -56,9 +55,9 @@ class DashboardActivity : ComponentActivity()  {
 
     }
     private  fun loadFragment(fragment: Fragment){
-        val transaction = fragment.fragmentManager?.beginTransaction()
-        transaction?.replace(R.id.containerScreen,fragment)
-        transaction?.commit()
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.containerScreen,fragment)
+        fragmentTransaction.commit()
     }
 
 

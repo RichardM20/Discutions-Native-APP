@@ -76,6 +76,9 @@ class FirebaseServices {
             }
     }
 
+    fun getAllPosts(){
+        //
+    }
     fun logOut(){
         _auth.signOut();
     }

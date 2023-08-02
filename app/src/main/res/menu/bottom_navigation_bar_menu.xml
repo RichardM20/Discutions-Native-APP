@@ -2,12 +2,16 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
+        android:tooltipText="@string/home_text"
         android:title="" />
+
     <item
+        android:tooltipText="@string/create_text"
         android:id="@+id/nav_create"
         android:icon="@drawable/ic_comment"
         android:title="" />
     <item
+        android:tooltipText="@string/profile_text"
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_profile"
         android:title="" />
