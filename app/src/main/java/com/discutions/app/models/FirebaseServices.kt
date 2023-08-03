@@ -6,12 +6,14 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 //servicios de firebase
 //login, getData, sendData
 class FirebaseServices {
     private var _auth:FirebaseAuth = Firebase.auth
+    private val _firebaseFirestore =FirebaseFirestore.getInstance();
     private val _response = ExceptionMessage();
     //methods
       fun loginWithEmailAndPassword(email: String, password: String,callback:(AuthResponse?)->Unit) {
@@ -76,8 +78,19 @@ class FirebaseServices {
             }
     }
 
-    fun getAllPosts(){
-        //
+    fun getAllPosts(onSuccess:(List<PostData>)->Unit, failed:(String)->Unit){
+        _firebaseFirestore.collection("posts")
+            .addSnapshotListener { snapshots, error ->
+                if(error!=null){
+                    failed("Failed");
+                    return@addSnapshotListener;
+                }
+                val posts = snapshots?.documents?.mapNotNull {
+                    doc->
+                    doc.toObject(PostData::class.java);
+                }?: emptyList();
+                onSuccess(posts);
+            }
     }
     fun logOut(){
         _auth.signOut();

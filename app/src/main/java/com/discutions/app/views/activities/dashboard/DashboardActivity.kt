@@ -1,4 +1,4 @@
-package com.discutions.app.views.dashboard
+package com.discutions.app.views.activities.dashboard
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,9 +8,9 @@ import com.discutions.app.R
 
 import com.discutions.app.databinding.ActivityDashboardBinding
 import com.discutions.app.models.UserPreferences
-import com.discutions.app.views.dashboard.ui.create.CreateFragment
-import com.discutions.app.views.dashboard.ui.home.HomeFragment
-import com.discutions.app.views.dashboard.ui.profile.ProfileFragment
+import com.discutions.app.views.fragments.create.CreateFragment
+import com.discutions.app.views.fragments.home.HomeFragment
+import com.discutions.app.views.fragments.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 

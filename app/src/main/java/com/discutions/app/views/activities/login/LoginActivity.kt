@@ -1,4 +1,4 @@
-package com.discutions.app.views.login
+package com.discutions.app.views.activities.login
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
@@ -11,8 +11,8 @@ import com.discutions.app.models.UserPreferences
 import com.discutions.app.utils.Dialogs
 import com.discutions.app.utils.GenericToast
 import com.discutions.app.utils.LoadingDialog
-import com.discutions.app.views.dashboard.DashboardActivity
-import com.discutions.app.views.register.RegisterActivity
+import com.discutions.app.views.activities.dashboard.DashboardActivity
+import com.discutions.app.views.activities.register.RegisterActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

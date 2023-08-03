@@ -1,12 +1,12 @@
-package com.discutions.app.views.splash
+package com.discutions.app.views.activities.splash
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import com.discutions.app.R
 import com.discutions.app.models.UserPreferences
-import com.discutions.app.views.dashboard.DashboardActivity
-import com.discutions.app.views.login.LoginActivity
+import com.discutions.app.views.activities.dashboard.DashboardActivity
+import com.discutions.app.views.activities.login.LoginActivity
 import java.util.Timer
 import kotlin.concurrent.timerTask
 

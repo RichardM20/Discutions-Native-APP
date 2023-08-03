@@ -1,4 +1,4 @@
-package com.discutions.app.views.register
+package com.discutions.app.views.activities.register
 
 import android.app.Dialog
 import android.content.Intent
@@ -11,8 +11,8 @@ import com.discutions.app.interfaces.RegisterStateListener
 import com.discutions.app.utils.Dialogs
 import com.discutions.app.utils.GenericToast
 import com.discutions.app.utils.LoadingDialog
-import com.discutions.app.views.dashboard.DashboardActivity
-import com.discutions.app.views.login.LoginActivity
+import com.discutions.app.views.activities.dashboard.DashboardActivity
+import com.discutions.app.views.activities.login.LoginActivity
 
 
 class RegisterActivity : ComponentActivity(), RegisterStateListener {

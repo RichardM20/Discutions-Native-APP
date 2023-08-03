@@ -1,4 +1,4 @@
-package com.discutions.app.views.dashboard.ui.profile
+package com.discutions.app.views.fragments.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

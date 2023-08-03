@@ -1,4 +1,4 @@
-package com.discutions.app.views.dashboard.ui.create
+package com.discutions.app.views.fragments.create
 
 import android.os.Bundle
 import android.view.LayoutInflater

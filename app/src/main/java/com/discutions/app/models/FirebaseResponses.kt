@@ -1,8 +1,24 @@
 package com.discutions.app.models
 
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuthException
-import com.google.firebase.auth.FirebaseUser
 import java.lang.Exception
+import java.util.Date
+
+data class PostDataResponse(
+    val postData:PostData,
+    val errorMessage:String?
+)
+data class PostData(
+    val uidPost:String="",
+    val publishedAt:Timestamp = Timestamp.now(),
+    val username:String="",
+    val post:String="",
+    val comments:Int=0,
+    val likes:Int=0,
+){
+    constructor() : this("", Timestamp.now(), "", "", 0, 0)
+}
 data class AuthResponse(
     val user:UserData?,
     val errorMessage:String?
