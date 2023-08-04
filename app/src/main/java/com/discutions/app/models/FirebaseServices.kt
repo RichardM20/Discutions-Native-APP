@@ -92,6 +92,9 @@ class FirebaseServices {
                 onSuccess(posts);
             }
     }
+    fun publishComment(comment:String){
+
+    }
     fun logOut(){
         _auth.signOut();
     }

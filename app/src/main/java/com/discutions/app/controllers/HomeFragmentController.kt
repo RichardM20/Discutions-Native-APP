@@ -1,15 +1,16 @@
 package com.discutions.app.controllers
 
-import com.discutions.app.interfaces.OnDataFetchListener
+import com.discutions.app.interfaces.OnDataCommentsListener
+import com.discutions.app.interfaces.OnDataPostsListener
 import com.discutions.app.models.FirebaseServices
 import com.discutions.app.models.UserPreferences
 import com.discutions.app.views.adapters.HomeFragmentAdapter
 import java.util.Timer
 import kotlin.concurrent.timerTask
 
-class HomeFragmentController{
+class HomeFragmentController(){
    private val firebaseServices = FirebaseServices();
-    fun getPosts(listener: OnDataFetchListener){
+    fun getPosts(listener: OnDataPostsListener){
         listener.onLoading(true);
         Timer().schedule(timerTask {
             firebaseServices.getAllPosts(
@@ -25,9 +26,13 @@ class HomeFragmentController{
             listener.onLoading(false);
         }, 1000)
 
-
-
-
+    }
+    fun comment(comment:String){
+      if(comment.isEmpty()){
+          println("Empty");
+      }else{
+          firebaseServices.publishComment(comment);
+      }
     }
 
 }

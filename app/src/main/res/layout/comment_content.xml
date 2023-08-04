@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/rounded_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/commentUserNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/default_text_light_color"
+            android:fontFamily="@font/inter_semi_bold"
+            android:text="@string/user_text"
+            />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/commentText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/default_text_light_color"
+            android:fontFamily="@font/inter_regular"
+            android:text="@string/comment_text"
+            />
+        <TextView
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:id="@+id/commentPublishedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey_color"
+            android:fontFamily="@font/inter_light"
+            android:text="published"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>

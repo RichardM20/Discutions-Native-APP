@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:paddingHorizontal="25dp"
+    android:paddingVertical="15dp"
+    android:background="@color/default_text_dark_color"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/commentContentRecycleView"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/commentField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_input"
+            android:ems="10"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/inter_regular"
+            android:hint="@string/enter_a_comment_text"
+            android:inputType="textMultiLine"
+            android:minLines="1"
+            android:maxLines="3" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/commentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comment_text"
+            android:background="@drawable/button_shadow"
+            android:textColor="@color/default_text_dark_color"
+            />
+    </LinearLayout>
+</LinearLayout>

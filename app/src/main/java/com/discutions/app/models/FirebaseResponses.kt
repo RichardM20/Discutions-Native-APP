@@ -10,14 +10,29 @@ data class PostDataResponse(
     val errorMessage:String?
 )
 data class PostData(
+    val uidUser: String="",
     val uidPost:String="",
     val publishedAt:Timestamp = Timestamp.now(),
     val username:String="",
     val post:String="",
-    val comments:Int=0,
-    val likes:Int=0,
+    val comments:List<CommentsData> = emptyList(),
+    val likes:List<LikeData> =  emptyList()
 ){
-    constructor() : this("", Timestamp.now(), "", "", 0, 0)
+    constructor() : this("","", Timestamp.now(), "", "", emptyList(), emptyList())
+}
+data class CommentsData(
+    val uidUser:String="",
+    val username: String="",
+    val comment:String="",
+    val commentAt:Timestamp = Timestamp.now(),
+){
+    constructor():this("","","", Timestamp.now(),);
+}
+data class LikeData(
+    val username: String="",
+    val uidUser:String="",
+){
+    constructor():this("","");
 }
 data class AuthResponse(
     val user:UserData?,

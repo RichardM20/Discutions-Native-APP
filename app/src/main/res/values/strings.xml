@@ -37,10 +37,11 @@
     <string name="delete_text">Delete</string>
     <string name="like_text">Like</string>
     <string name="comment_text">Comment</string>
+    <string name="comments_text">Comments</string>
     <string name="send_text">Send</string>
     <string name="home_text">Home</string>
     <string name="heart_text">Heart</string>
-
+    <string name="enter_a_comment_text">Enter a comment</string>
 
     <!--credentials-->
     <string name="default_client_web_id">968779206986-606peom2r5vetnf9p41pfpc4a0av3g0b.apps.googleusercontent.com</string>
