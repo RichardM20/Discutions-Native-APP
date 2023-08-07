@@ -46,8 +46,12 @@ class HomeFragmentAdapter(private val posts:List<PostData>,private val listener:
 
        holder.itemView.findViewById<LinearLayout>(R.id.commentAction).setOnClickListener {
            //pasamos los datos por medio del oyente al dar click en el boton indicado
-           listener.onTapCommentIcon(post.comments);
+           listener.onTapCommentIcon(post.comments, postId = post.uidPost);
+
        }
+        holder.itemView.findViewById<LinearLayout>(R.id.heartAction).setOnClickListener {
+            listener.onTapLike(post.uidPost);
+        }
         holder.bind(post);
     }
 }

@@ -9,17 +9,19 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.discutions.app.R
 
-class Dialogs {
-    fun showDialog(context:android.content.Context, title: String, message: String) {
-        val dialogBuilder = AlertDialog.Builder(context)
-        dialogBuilder.setMessage(message)
-            .setPositiveButton("Accept", DialogInterface.OnClickListener {
-                    _, _ -> dialogBuilder.create().dismiss()
-            });
-        val alert = dialogBuilder.create()
-        alert.setTitle(title)
-        alert.show()
-    }
+class GenericDialog {
+   companion object{
+       fun showDialog(context:Context, title: String, message: String) {
+           val dialogBuilder = AlertDialog.Builder(context)
+           dialogBuilder.setMessage(message)
+               .setPositiveButton("Accept", DialogInterface.OnClickListener {
+                       _, _ -> dialogBuilder.create().dismiss()
+               });
+           val alert = dialogBuilder.create()
+           alert.setTitle(title)
+           alert.show()
+       }
+   }
 }
 class LoadingDialog{
     private var context: Context;

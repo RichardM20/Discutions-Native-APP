@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:paddingHorizontal="25dp"
     android:paddingVertical="10dp"
+    android:layout_margin="0dp"
     android:fillViewport="true"
     android:scrollbars="none"
     android:fadeScrollbars="true"

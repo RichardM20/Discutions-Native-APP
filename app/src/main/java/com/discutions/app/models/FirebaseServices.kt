@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
@@ -92,8 +93,65 @@ class FirebaseServices {
                 onSuccess(posts);
             }
     }
-    fun publishComment(comment:String){
+    fun publishComment(commentsData: CommentsData, uidPost:String, callback:(String)->Unit) {
 
+        val comment = hashMapOf(
+            "uidUser" to commentsData.uidUser,
+            "username" to commentsData.username,
+            "comment" to commentsData.comment,
+            "commentAt" to commentsData.commentAt
+        );
+        _firebaseFirestore.collection("posts")
+            .document("$uidPost")
+            .update("comments", FieldValue.arrayUnion(comment))
+            .addOnCompleteListener {
+                    resultTask->
+                if(resultTask.isSuccessful){
+                    callback("success");
+                }else{
+                    callback(resultTask.exception?.message.toString());
+                }
+            }
+
+    }
+    fun likeToPost(likeData: LikeData, uidPost: String, callback: (String) -> Unit) {
+        println("intent like to post: $uidPost");
+        val toLike = hashMapOf(
+            "uidUser" to likeData.uidUser,
+            "username" to likeData.username,
+        )
+        val postRef = _firebaseFirestore
+            .collection("posts")
+            .document("$uidPost")
+        postRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                println("success to get data post");
+                val post = task.result.toObject(PostData::class.java)
+                println("post :${post?.likes}");
+                post?.let {
+                    val likes = it.likes
+                    val exist = likes.any { like -> like.uidUser == likeData.uidUser }
+                    if (exist) {
+                        println("this user already liked post");
+                        postRef.update("likes", FieldValue.arrayRemove(toLike))
+                    } else {
+                        println("not like");
+                        postRef.update("likes", FieldValue.arrayUnion(toLike))
+                    }.addOnCompleteListener { updateTask ->
+                        println("task complete");
+                        if(updateTask.isSuccessful){
+                            callback("success");
+                        }else{
+                            callback(updateTask.exception?.message.toString());
+                        }
+
+                    }
+                } ?: callback("Post not found")
+            } else {
+                println("problem to get data");
+                callback(task.exception?.message.toString())
+            }
+        }
     }
     fun logOut(){
         _auth.signOut();

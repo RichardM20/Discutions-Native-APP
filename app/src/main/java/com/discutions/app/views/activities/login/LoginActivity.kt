@@ -8,7 +8,8 @@ import com.discutions.app.controllers.LoginController
 import com.discutions.app.databinding.ActivityLoginBinding
 import com.discutions.app.interfaces.LoginStateListerner
 import com.discutions.app.models.UserPreferences
-import com.discutions.app.utils.Dialogs
+
+import com.discutions.app.utils.GenericDialog
 import com.discutions.app.utils.GenericToast
 import com.discutions.app.utils.LoadingDialog
 import com.discutions.app.views.activities.dashboard.DashboardActivity
@@ -25,14 +26,14 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
     private lateinit var _binding: ActivityLoginBinding
     private lateinit var _loginController:LoginController;
     private lateinit var googleSignInClient: GoogleSignInClient;
-    private lateinit var _dialog: Dialogs;
+
     private lateinit var  _loadingDialog:LoadingDialog;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //inicializamos
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(_binding.root);
-        _dialog=Dialogs();
+
         _loginController=LoginController(UserPreferences(this));
         _loadingDialog= LoadingDialog(this, Dialog(this));
 
@@ -75,7 +76,7 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
             if (_loginController.validateForm()) {
                 _loginController.loginWithEmailAndPassword(this)
             } else {
-                _dialog.showDialog(this, "Information", "Email or password invalid");
+                GenericDialog.showDialog(this, "Information", "Email or password invalid");
             }
         }
     }
@@ -109,7 +110,7 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
 
     override fun onLoginFailed(err: String) {
         //en caso de que salga algo mal mostramos el mensaje del error
-        return _dialog.showDialog(this, "Failed", err);
+        return GenericDialog.showDialog(this, "Failed", err);
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //resultado del intento de inicio de sesion con google para obtener el tokenID
@@ -125,11 +126,11 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
                 } else {
                     //indcamos el error
                     //tener en cuenta que no muestro el error en el oyente ya que esta separado obviamente
-                    _dialog.showDialog(this,"Error","Could not get GoogleToken")
+                    GenericDialog.showDialog(this,"Error","Could not get GoogleToken")
                 }
             } catch (e: ApiException) {
                 //capturamos el error para mostrarlo
-                _dialog.showDialog(this,"Error","Operation has been cancelled");
+                GenericDialog.showDialog(this,"Error","Operation has been cancelled");
             }
         }
     }

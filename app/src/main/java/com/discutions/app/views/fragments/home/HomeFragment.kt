@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,8 @@ import com.discutions.app.controllers.HomeFragmentController
 import com.discutions.app.interfaces.OnDataPostsListener
 import com.discutions.app.models.CommentsData
 import com.discutions.app.models.PostData
+import com.discutions.app.models.UserPreferences
+import com.discutions.app.utils.GenericToast
 import com.discutions.app.utils.LoadingDialog
 import com.discutions.app.views.adapters.HomeFragmentAdapter
 import com.discutions.app.views.fragments.FullScreenBottomSheetFragment
@@ -37,7 +40,7 @@ class HomeFragment : Fragment(), OnDataPostsListener {
         recyclerView.adapter=adapter;
 
         loadingDialog=LoadingDialog(requireContext(), Dialog(requireContext()));
-        _fragmentController= HomeFragmentController();
+        _fragmentController= HomeFragmentController(UserPreferences(requireContext()));
         _fragmentController.getPosts(this);
 
         return view;
@@ -61,16 +64,25 @@ class HomeFragment : Fragment(), OnDataPostsListener {
 
 
     override fun onDataFetchFailure(errorMessage: String) {
-        println("Fail: ${errorMessage}");
+       GenericToast.showToast(requireContext(),errorMessage,false);
     }
 
-    override fun onTapCommentIcon(comments: List<CommentsData>) {
+    override fun onTapLike(postId: String) {
+
+        _fragmentController.like(postId,this);
+    }
+    override fun onTapCommentIcon(comments: List<CommentsData>, postId:String) {
         val bundle = Bundle();
         val modal = FullScreenBottomSheetFragment();
         //
         bundle.putSerializable("comments_data_list",ArrayList(comments));//pasamos los datos por medio del bundle
+        bundle.putString("postId",postId)
         modal.arguments=bundle;
         modal.show(childFragmentManager, modal.tag)
+    }
+
+    override fun onLikeSuccess() {
+            println("success process to like post");
     }
 
 }

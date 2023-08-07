@@ -5,7 +5,7 @@
 
     android:paddingHorizontal="25dp"
     android:paddingVertical="15dp"
-    android:background="@color/default_text_dark_color"
+    android:background="@drawable/rounded_card"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:overScrollMode="never"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="350dp">
     </androidx.recyclerview.widget.RecyclerView>
     <LinearLayout
         android:layout_marginTop="20dp"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_input"
             android:ems="10"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:fontFamily="@font/inter_regular"
             android:hint="@string/enter_a_comment_text"
             android:inputType="textMultiLine"

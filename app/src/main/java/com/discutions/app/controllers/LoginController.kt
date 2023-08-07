@@ -27,6 +27,8 @@ class LoginController(val preferences: UserPreferences) {
               if(result?.errorMessage!=null){
                   listener.onLoginFailed(result.errorMessage);
               }else{
+                println("USER ID: ${result?.user?.uid}");
+                  preferences.userId=result?.user?.uid;
                   listener.onLoginSuccess("${result?.user?.email}");
               }
               listener.onLoading(false);
