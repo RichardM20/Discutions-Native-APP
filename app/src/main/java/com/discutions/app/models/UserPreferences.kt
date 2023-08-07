@@ -13,6 +13,7 @@ class UserPreferences(private val context: Context) {
         private const val KEY_PASSWORD = "password"
         private const val KEY_REMEMBER="remember";
         private const val KEY_AUTHSTATE="auth-state";
+        private const val KEY_FCM_TOKEN="token-fcm";
     }
 
     private val sharedPreferences: SharedPreferences =
@@ -21,6 +22,9 @@ class UserPreferences(private val context: Context) {
     var email: String?
         get() = sharedPreferences.getString(KEY_EMAIL, null)
         set(value) = sharedPreferences.edit().putString(KEY_EMAIL, value).apply()
+    var tokenFCM: String?
+        get() = sharedPreferences.getString(KEY_FCM_TOKEN, null)
+        set(value) = sharedPreferences.edit().putString(KEY_FCM_TOKEN, value).apply()
     var userId: String?
         get() = sharedPreferences.getString(KEY_USERID, null)
         set(value) = sharedPreferences.edit().putString(KEY_USERID, value).apply()

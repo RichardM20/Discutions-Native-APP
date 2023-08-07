@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical">
     <ScrollView
@@ -32,19 +33,30 @@
                 android:text="@string/login_text"
                 android:textColor="@color/primary_dark_color"
                 android:textSize="30sp" />
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailField"
+
+            <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/rounded_input"
                 android:ems="10"
-                android:fontFamily="@font/inter_regular"
-                android:hint="@string/email_hint_text"
-                android:inputType="textEmailAddress"
-                android:paddingVertical="18dp" />
+                android:paddingVertical="2dp" >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailField"
+                    android:background="@drawable/rounded_input"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_regular"
+                    android:imeOptions="actionNext"
+                    android:hint="@string/email_text"
+                    android:inputType="textEmailAddress"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordField"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
@@ -52,12 +64,23 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/rounded_input"
-                android:drawableEnd="@drawable/visivility"
                 android:ems="10"
-                android:fontFamily="@font/inter_regular"
-                android:hint="@string/password_hint_text"
-                android:inputType="textPassword"
-                android:paddingVertical="15dp" />
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/secondary_color"
+                app:passwordToggleDrawable="@drawable/ic_show_hide_password"
+                android:paddingVertical="2dp" >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordFieldValue"
+                    android:background="@drawable/rounded_input"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_regular"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/password_text"
+                    android:inputType="textPassword"
+                />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox android:id="@+id/rememberCheckbox"
                 android:layout_width="wrap_content"

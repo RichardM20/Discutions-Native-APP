@@ -3,6 +3,8 @@ package com.discutions.app.views.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +16,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 
-class HomeFragmentAdapter(private val posts:List<PostData>,private val listener:OnDataPostsListener)
+class HomeFragmentAdapter(private val uidUser:String,private val posts:List<PostData>,private val listener:OnDataPostsListener)
     : RecyclerView.Adapter<HomeFragmentAdapter.HomeFragmentViewHolder>(){
         class HomeFragmentViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
             private val userNameText:TextView=itemView.findViewById(R.id.usernameText);
@@ -46,11 +48,17 @@ class HomeFragmentAdapter(private val posts:List<PostData>,private val listener:
 
        holder.itemView.findViewById<LinearLayout>(R.id.commentAction).setOnClickListener {
            //pasamos los datos por medio del oyente al dar click en el boton indicado
-           listener.onTapCommentIcon(post.comments, postId = post.uidPost);
+           listener.onTapCommentIcon(post.fcmToken, post.comments, postId = post.uidPost);
 
        }
         holder.itemView.findViewById<LinearLayout>(R.id.heartAction).setOnClickListener {
-            listener.onTapLike(post.uidPost);
+            listener.onTapLike(post.fcmToken,post.uidPost);
+        }
+        //verificamos si existe el uid
+        val hasLiked = post.likes.any { like-> like.uidUser==uidUser }
+        if(hasLiked){
+            //pintamos el nuevo icono
+           holder.itemView.findViewById<ImageButton>(R.id.heartIcon).setBackgroundResource(R.drawable.heart_filled);
         }
         holder.bind(post);
     }

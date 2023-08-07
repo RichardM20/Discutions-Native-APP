@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.recyclerview.widget.RecyclerView
+    android:layout_below="@+id/appbar"
     android:id="@+id/recycleView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:paddingHorizontal="25dp"
+    android:paddingHorizontal="10dp"
     android:paddingVertical="10dp"
-    android:layout_margin="0dp"
+    android:layout_marginTop="70dp"
     android:fillViewport="true"
     android:scrollbars="none"
     android:fadeScrollbars="true"

@@ -11,6 +11,14 @@
         <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
     </style>
 
+    <style name="CustomToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:layout_gravity">start</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/inter_semi_bold</item>
+        >
+    </style>
+
     <style name="DialogCorners">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>

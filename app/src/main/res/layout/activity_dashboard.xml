@@ -6,9 +6,21 @@
     android:id="@+id/containerScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:layout_above="@+id/bottomNavbar"
     tools:context=".views.activities.dashboard.DashboardActivity">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/appbar"
+            android:elevation="0.5dp"
+            android:layout_width="match_parent"
+            app:title="@string/app_name"
+
+            app:menu="@menu/app_bar"
+            android:background="@color/default_text_dark_color"
+            android:theme="@style/CustomToolbarStyle"
+            app:titleTextColor="@color/primary_dark_color"
+            android:layout_height="wrap_content">
+        </androidx.appcompat.widget.Toolbar>
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:background="@color/default_text_dark_color"
             android:id="@+id/bottomNavbar"

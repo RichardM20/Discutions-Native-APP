@@ -9,7 +9,16 @@ data class PostDataResponse(
     val postData:PostData,
     val errorMessage:String?
 )
+data class ProfileData(
+    val uidUser: String="",
+    val username: String="",
+    val description:String="",
+    val email:String="",
+    val gender:String="",
+    val fcmToken: String=""
+)
 data class PostData(
+    val fcmToken:String="",
     val uidUser: String="",
     val uidPost:String="",
     val publishedAt:Timestamp = Timestamp.now(),
@@ -18,7 +27,7 @@ data class PostData(
     val comments:List<CommentsData> = emptyList(),
     val likes:List<LikeData> =  emptyList()
 ){
-    constructor() : this("","", Timestamp.now(), "", "", emptyList(), emptyList())
+    constructor() : this("","","", Timestamp.now(), "", "", emptyList(), emptyList())
 }
 data class CommentsData(
     val uidUser:String="",

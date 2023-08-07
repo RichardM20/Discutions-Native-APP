@@ -93,8 +93,30 @@ class FirebaseServices {
                 onSuccess(posts);
             }
     }
-    fun publishComment(commentsData: CommentsData, uidPost:String, callback:(String)->Unit) {
 
+    fun completeProfile(profileData: ProfileData,failed:(String)->Unit,success: (ProfileData?) -> Unit){
+        val user = hashMapOf(
+            "username" to profileData.username,
+            "gender" to profileData.gender,
+            "email" to profileData.email,
+            "description" to profileData.description,
+            "tokenFCM" to profileData.fcmToken
+        )
+        _firebaseFirestore
+            .collection("users")
+            .add(user)
+            .addOnCompleteListener {
+                result->
+                if(result.isSuccessful){
+                    success(profileData);
+                }else{
+                    failed(result.exception?.message.toString());
+                }
+            }
+    }
+
+    fun publishComment(commentsData: CommentsData, uidPost:String, callback:(String)->Unit) {
+        println("call: publishComment()");
         val comment = hashMapOf(
             "uidUser" to commentsData.uidUser,
             "username" to commentsData.username,
@@ -115,7 +137,7 @@ class FirebaseServices {
 
     }
     fun likeToPost(likeData: LikeData, uidPost: String, callback: (String) -> Unit) {
-        println("intent like to post: $uidPost");
+        println("call: likeToPost()");
         val toLike = hashMapOf(
             "uidUser" to likeData.uidUser,
             "username" to likeData.username,
@@ -125,20 +147,18 @@ class FirebaseServices {
             .document("$uidPost")
         postRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                println("success to get data post");
                 val post = task.result.toObject(PostData::class.java)
-                println("post :${post?.likes}");
                 post?.let {
                     val likes = it.likes
+                    //verificamos si hay coincidencia
                     val exist = likes.any { like -> like.uidUser == likeData.uidUser }
                     if (exist) {
-                        println("this user already liked post");
+                        //si exixte lo removemos de la lista
                         postRef.update("likes", FieldValue.arrayRemove(toLike))
                     } else {
-                        println("not like");
+                        //de lo contrario se agrega
                         postRef.update("likes", FieldValue.arrayUnion(toLike))
                     }.addOnCompleteListener { updateTask ->
-                        println("task complete");
                         if(updateTask.isSuccessful){
                             callback("success");
                         }else{
@@ -153,6 +173,7 @@ class FirebaseServices {
             }
         }
     }
+
     fun logOut(){
         _auth.signOut();
     }

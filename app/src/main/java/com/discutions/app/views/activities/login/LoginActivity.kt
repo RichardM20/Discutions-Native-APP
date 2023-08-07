@@ -1,7 +1,10 @@
 package com.discutions.app.views.activities.login
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
+import android.view.MotionEvent
 import androidx.activity.ComponentActivity
 import com.discutions.app.R
 import com.discutions.app.controllers.LoginController
@@ -12,6 +15,7 @@ import com.discutions.app.models.UserPreferences
 import com.discutions.app.utils.GenericDialog
 import com.discutions.app.utils.GenericToast
 import com.discutions.app.utils.LoadingDialog
+import com.discutions.app.views.activities.complete.CompleteProfileActivity
 import com.discutions.app.views.activities.dashboard.DashboardActivity
 import com.discutions.app.views.activities.register.RegisterActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -26,7 +30,7 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
     private lateinit var _binding: ActivityLoginBinding
     private lateinit var _loginController:LoginController;
     private lateinit var googleSignInClient: GoogleSignInClient;
-
+    private var showPassword:Boolean=false;
     private lateinit var  _loadingDialog:LoadingDialog;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +57,12 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
     }
    private fun getRemember(){
         if(_loginController.preferences.remember==true){
-            _binding.passwordField.setText(_loginController.preferences.password);
+            _binding.passwordFieldValue.setText(_loginController.preferences.password);
             _binding.emailField.setText(_loginController.preferences.email);
             _binding.rememberCheckbox.isChecked=true;
         }
     }
+
 
     private fun checkBoxEvent(){
         _binding.rememberCheckbox.setOnCheckedChangeListener { _, isChecked ->
@@ -65,14 +70,13 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
         }
     }
     private  fun loginButtonEvent(){
-
         _binding.loginButton.setOnClickListener {
             if(_loginController.preferences.remember==true){
                 _loginController.preferences.email = _binding.emailField.text.toString()
-                _loginController.preferences.password = _binding.passwordField.text.toString()
+                _loginController.preferences.password = _binding.passwordFieldValue.text.toString()
             }
             _loginController.email = _binding.emailField.text.toString()
-            _loginController.password = _binding.passwordField.text.toString()
+            _loginController.password = _binding.passwordFieldValue.text.toString()
             if (_loginController.validateForm()) {
                 _loginController.loginWithEmailAndPassword(this)
             } else {
@@ -93,8 +97,8 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
         }
     }
     override fun onLoginSuccess(username: String?) {
-        GenericToast.showToast(this,"Welcome $username",true);
-        startActivity(Intent(applicationContext, DashboardActivity::class.java))
+//        GenericToast.showToast(this,"Welcome $username",true);
+        startActivity(Intent(applicationContext, CompleteProfileActivity::class.java))
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         finish();//finalizamos
     }

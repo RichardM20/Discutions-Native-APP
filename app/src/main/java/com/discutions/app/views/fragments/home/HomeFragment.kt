@@ -24,6 +24,7 @@ import com.discutions.app.views.fragments.FullScreenBottomSheetFragment
 class HomeFragment : Fragment(), OnDataPostsListener {
 
     private lateinit var _fragmentController:HomeFragmentController;
+    private lateinit var  _preferences:UserPreferences;
     private lateinit var recyclerView: RecyclerView
     private lateinit var loadingDialog: LoadingDialog;
     private lateinit var adapter: HomeFragmentAdapter
@@ -33,10 +34,10 @@ class HomeFragment : Fragment(), OnDataPostsListener {
         savedInstanceState: Bundle?
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_home, container, false);
-
+        _preferences= UserPreferences(requireContext());
         recyclerView = view.findViewById<RecyclerView>(R.id.recycleView);
         recyclerView.layoutManager=LinearLayoutManager(context);
-        adapter = HomeFragmentAdapter(emptyList(),this);
+        adapter = HomeFragmentAdapter(_preferences.userId!!,emptyList(),this);
         recyclerView.adapter=adapter;
 
         loadingDialog=LoadingDialog(requireContext(), Dialog(requireContext()));
@@ -58,7 +59,7 @@ class HomeFragment : Fragment(), OnDataPostsListener {
     }
 
     override fun onDataFetchSuccess(postList: List<PostData>) {
-        adapter= HomeFragmentAdapter( postList,this);
+        adapter= HomeFragmentAdapter(_preferences.userId!!,postList,this);
         recyclerView.adapter=adapter;
     }
 
@@ -67,11 +68,11 @@ class HomeFragment : Fragment(), OnDataPostsListener {
        GenericToast.showToast(requireContext(),errorMessage,false);
     }
 
-    override fun onTapLike(postId: String) {
-
+    override fun onTapLike(fcmToken:String,postId: String) {
+        _preferences.tokenFCM=fcmToken;
         _fragmentController.like(postId,this);
     }
-    override fun onTapCommentIcon(comments: List<CommentsData>, postId:String) {
+    override fun onTapCommentIcon(fcmToken:String, comments: List<CommentsData>, postId:String) {
         val bundle = Bundle();
         val modal = FullScreenBottomSheetFragment();
         //

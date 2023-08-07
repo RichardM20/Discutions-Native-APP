@@ -43,7 +43,7 @@ class RegisterActivity : ComponentActivity(), RegisterStateListener {
     private fun registerEvent(){
        _binding.registerButton.setOnClickListener {
            _registerController.email = _binding.emailField.text.toString()
-           _registerController.password = _binding.passwordField.text.toString()
+           _registerController.password = _binding.passwordFieldValue.text.toString()
            _registerController.confirmPassword = _binding.confirmPasswordField.text.toString()
            //
            _registerController.validateForm {message->
