@@ -93,9 +93,46 @@ class FirebaseServices {
                 onSuccess(posts);
             }
     }
+    fun addUser(uidUser:String, callback: (String) -> Unit){
+        _firebaseFirestore
+            .collection("users")
+            .document("$uidUser")
+            .get()
+            .addOnCompleteListener {
+                result->
+                if(result.isSuccessful){
+                    val doc = result.result;
+                    if(doc.exists()){
+                        callback("exist");
+                    }else{
+                        callback("not-found");
+                    }
+                }
 
+            }
+
+    }
+    fun getDataUser(uidUser: String, onSuccess: (ProfileData) -> Unit, onFailed:(String)->Unit){
+        _firebaseFirestore
+            .collection("users")
+            .document("$uidUser")
+            .get()
+            .addOnCompleteListener {
+                result->
+                if(result.isSuccessful){
+                    val userData = result.result.toObject(ProfileData::class.java);
+                    if(userData!=null){
+                        onSuccess(userData);
+                    }
+                }else{
+                    println("exception in getDataUser: ${result.exception}");
+                    onFailed(result.exception?.message.toString());
+                }
+            }
+    }
     fun completeProfile(profileData: ProfileData,failed:(String)->Unit,success: (ProfileData?) -> Unit){
         val user = hashMapOf(
+            "uidUser" to profileData.uidUser,
             "username" to profileData.username,
             "gender" to profileData.gender,
             "email" to profileData.email,
@@ -104,7 +141,8 @@ class FirebaseServices {
         )
         _firebaseFirestore
             .collection("users")
-            .add(user)
+            .document("${profileData.uidUser}")
+            .set(user)
             .addOnCompleteListener {
                 result->
                 if(result.isSuccessful){
@@ -137,7 +175,7 @@ class FirebaseServices {
 
     }
     fun likeToPost(likeData: LikeData, uidPost: String, callback: (String) -> Unit) {
-        println("call: likeToPost()");
+        println("call: likeToPost()\nuser: $uidPost");
         val toLike = hashMapOf(
             "uidUser" to likeData.uidUser,
             "username" to likeData.username,

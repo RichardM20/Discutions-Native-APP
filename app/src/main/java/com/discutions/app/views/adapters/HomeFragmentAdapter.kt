@@ -46,12 +46,11 @@ class HomeFragmentAdapter(private val uidUser:String,private val posts:List<Post
     override fun onBindViewHolder(holder: HomeFragmentViewHolder, position: Int) {
         val post=posts[position];
 
-       holder.itemView.findViewById<LinearLayout>(R.id.commentAction).setOnClickListener {
-           //pasamos los datos por medio del oyente al dar click en el boton indicado
-           listener.onTapCommentIcon(post.fcmToken, post.comments, postId = post.uidPost);
 
-       }
-        holder.itemView.findViewById<LinearLayout>(R.id.heartAction).setOnClickListener {
+        holder.itemView.findViewById<ImageButton>(R.id.commentIcon).setOnClickListener {
+            listener.onTapCommentIcon(post.fcmToken, post.comments, postId = post.uidPost);
+        }
+        holder.itemView.findViewById<ImageButton>(R.id.heartIcon).setOnClickListener {
             listener.onTapLike(post.fcmToken,post.uidPost);
         }
         //verificamos si existe el uid

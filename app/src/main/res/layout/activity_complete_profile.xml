@@ -2,9 +2,103 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-
+    android:paddingHorizontal="35dp"
+    android:paddingVertical="5dp"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.activities.complete.CompleteProfileActivity"
     android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_semi_bold"
+        android:textSize="25sp"
+        android:textColor="@color/primary_dark_color"
+        android:text="@string/welcome_text"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_regular"
+        android:text="@string/complete_profile_information_text"
+        android:layout_marginBottom="25dp"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/rounded_input"
+        android:ems="10"
+        android:paddingVertical="2dp" >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/usernameField"
+            android:background="@drawable/rounded_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_regular"
+            android:imeOptions="actionNext"
+            android:hint="@string/user_text"
+            android:inputType="text"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/rounded_input"
+        android:ems="10"
+        android:paddingVertical="2dp" >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/presentationField"
+            android:background="@drawable/rounded_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_regular"
+            android:imeOptions="actionDone"
+            android:minLines="2"
+            android:maxLines="5"
+            android:hint="@string/presentation_text"
+            android:inputType="textMultiLine"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="start"
+        android:gravity="center"
+        android:id="@+id/radioGenderGroup">
+        <RadioButton
+            android:id="@+id/maleOption"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:fontFamily="@font/inter_regular"
+            android:text="@string/male_text" />
+        <RadioButton
+            android:id="@+id/femaleOption"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/female_text"
+            android:fontFamily="@font/inter_regular"
+            android:checked="false"
+          />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonFinish"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/finish_text"
+        android:fontFamily="@font/inter_semi_bold"
+        android:textSize="16sp"
+        android:textColor="@color/default_text_dark_color"
+        android:background="@drawable/button_shadow"/>
 
 </LinearLayout>

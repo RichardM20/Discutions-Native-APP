@@ -15,6 +15,7 @@
             android:id="@+id/commentUserNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:textColor="@color/default_text_light_color"
             android:fontFamily="@font/inter_semi_bold"
             android:text="@string/user_text"
@@ -25,6 +26,7 @@
             android:id="@+id/commentText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
             android:textColor="@color/default_text_light_color"
             android:fontFamily="@font/inter_regular"
             android:text="@string/comment_text"
@@ -37,6 +39,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/grey_color"
             android:fontFamily="@font/inter_light"
+            android:textSize="10sp"
             android:text=""
             />
 

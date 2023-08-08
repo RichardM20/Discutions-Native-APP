@@ -15,8 +15,23 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this);
-        val service = PushNotificationFirebaseService(this);
-        service.getNotification();
+        PushNotificationFirebaseService();
+        getTokenFCM(UserPreferences(this));
+
+    }
+    private fun getTokenFCM(preferences: UserPreferences){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+                result->
+            if(result.isSuccessful){
+                if(preferences.tokenFCM!=result.result.toString()){
+                    preferences.tokenFCM=result.result.toString();
+                }else{
+                    println("already saved token");
+                }
+                print("prefs fcm: ${preferences.tokenFCM}");
+            }
+
+        }
     }
 
 }

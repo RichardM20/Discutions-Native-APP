@@ -42,6 +42,7 @@ class HomeFragment : Fragment(), OnDataPostsListener {
 
         loadingDialog=LoadingDialog(requireContext(), Dialog(requireContext()));
         _fragmentController= HomeFragmentController(UserPreferences(requireContext()));
+        _fragmentController.getUserData();
         _fragmentController.getPosts(this);
 
         return view;
@@ -49,10 +50,8 @@ class HomeFragment : Fragment(), OnDataPostsListener {
 
 
     override fun onLoading(loading: Boolean) {
-
-        println("is loading:$loading");
         if(loading){
-            loadingDialog.showLoadingDialog("Loading dat");
+            loadingDialog.showLoadingDialog("Loading");
         }else{
             loadingDialog.hideLoadingDialog();
         }
@@ -69,8 +68,7 @@ class HomeFragment : Fragment(), OnDataPostsListener {
     }
 
     override fun onTapLike(fcmToken:String,postId: String) {
-        _preferences.tokenFCM=fcmToken;
-        _fragmentController.like(postId,this);
+        _fragmentController.like(fcmToken,postId,this);
     }
     override fun onTapCommentIcon(fcmToken:String, comments: List<CommentsData>, postId:String) {
         val bundle = Bundle();
@@ -78,6 +76,7 @@ class HomeFragment : Fragment(), OnDataPostsListener {
         //
         bundle.putSerializable("comments_data_list",ArrayList(comments));//pasamos los datos por medio del bundle
         bundle.putString("postId",postId)
+        bundle.putString("tokenFCM",fcmToken)
         modal.arguments=bundle;
         modal.show(childFragmentManager, modal.tag)
     }

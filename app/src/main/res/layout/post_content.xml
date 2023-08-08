@@ -26,17 +26,15 @@
                 android:fontFamily="@font/inter_semi_bold"
                 android:gravity="start"
                 android:text="@string/user_text"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
             <TextView
                 android:id="@+id/postText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_regular"
                 android:text=""
-                android:textSize="12sp" />
-
+                android:textSize="14sp" />
             <TextView
-
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="5dp"
                 android:id="@+id/publishedText"
@@ -45,7 +43,7 @@
                 android:fontFamily="@font/inter_light"
                 android:textColor="@color/grey_color"
                 android:text=""
-                android:textSize="9sp"
+                android:textSize="10sp"
                 tools:ignore="SmallSp" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,8 +54,8 @@
                 android:paddingVertical="5dp">
                 <LinearLayout
                     android:id="@+id/heartAction"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="5dp"
                     android:layout_width="wrap_content"
                     android:orientation="horizontal"
                     android:layout_gravity="center"
@@ -66,11 +64,10 @@
                     android:layout_height="wrap_content">
                     <ImageButton
                         android:layout_gravity="center"
-
                         android:id="@+id/heartIcon"
                         android:contentDescription="@string/like_text"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:background="@drawable/ic_heart" />
                     <TextView
                         android:layout_gravity="center"
@@ -81,14 +78,14 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_semi_bold"
                         android:textColor="@color/primary_dark_color"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:text=""
                         />
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/commentAction"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="5dp"
                     android:layout_marginStart="10dp"
                     android:layout_width="wrap_content"
                     android:orientation="horizontal"
@@ -97,10 +94,11 @@
                     android:background="@drawable/rounded_input"
                     android:layout_height="wrap_content">
                     <ImageButton
+                        android:id="@+id/commentIcon"
                         android:contentDescription="@string/like_text"
                         android:translationY="1dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/ic_comment" />
                     <TextView
@@ -112,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_semi_bold"
                         android:textColor="@color/primary_dark_color"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:text=""
                         />
                 </LinearLayout>

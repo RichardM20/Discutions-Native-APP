@@ -14,6 +14,7 @@ class UserPreferences(private val context: Context) {
         private const val KEY_REMEMBER="remember";
         private const val KEY_AUTHSTATE="auth-state";
         private const val KEY_FCM_TOKEN="token-fcm";
+        private const val KEY_PROFILE_COMPLETED="profile-completed";
     }
 
     private val sharedPreferences: SharedPreferences =
@@ -22,6 +23,9 @@ class UserPreferences(private val context: Context) {
     var email: String?
         get() = sharedPreferences.getString(KEY_EMAIL, null)
         set(value) = sharedPreferences.edit().putString(KEY_EMAIL, value).apply()
+    var completedProfile: Boolean?
+        get() = sharedPreferences.getBoolean(KEY_PROFILE_COMPLETED, false)
+        set(value) = sharedPreferences.edit().putBoolean(KEY_PROFILE_COMPLETED, value!!).apply()
     var tokenFCM: String?
         get() = sharedPreferences.getString(KEY_FCM_TOKEN, null)
         set(value) = sharedPreferences.edit().putString(KEY_FCM_TOKEN, value).apply()
@@ -37,7 +41,7 @@ class UserPreferences(private val context: Context) {
     var remember:Boolean?
         get() = sharedPreferences.getBoolean(KEY_REMEMBER,false);
         set(value) = sharedPreferences.edit().putBoolean(KEY_REMEMBER,value!!).apply();
-    var isLogegd:Boolean?
+    var isLogged:Boolean?
         get() = sharedPreferences.getBoolean(KEY_AUTHSTATE,false);
         set(value) = sharedPreferences.edit().putBoolean(KEY_AUTHSTATE,value!!).apply();
     fun clear() {

@@ -3,8 +3,9 @@ package com.discutions.app.controllers
 import android.util.Patterns
 import com.discutions.app.interfaces.RegisterStateListener
 import com.discutions.app.models.FirebaseServices
+import com.discutions.app.models.UserPreferences
 
-class RegisterController {
+class RegisterController(val preferences: UserPreferences) {
     var email:String = "";
     var password:String="";
     var confirmPassword:String="";
@@ -42,7 +43,19 @@ class RegisterController {
               if(result?.errorMessage!=null){
                   listener.onRegisterFailed(result.errorMessage);
               }else{
-                  listener.onRegisterSuccess();
+                  preferences.userId=result?.user?.uid;
+                  preferences.email=result?.user?.email;
+                  firebaseServices.addUser(result?.user?.uid.toString()) { result ->
+                      if (result != "exist") {
+                          listener.onLoading(false);
+                          listener.onRegisterSuccess(false);
+                      } else {
+
+                          listener.onLoading(false);
+                          listener.onRegisterSuccess(true);
+                      }
+                  };
+
               }
               listener.onLoading(false);
           }

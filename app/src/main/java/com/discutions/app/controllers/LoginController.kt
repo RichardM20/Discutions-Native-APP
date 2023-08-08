@@ -4,6 +4,7 @@ import android.util.Patterns
 import com.discutions.app.interfaces.LoginStateListerner
 import com.discutions.app.models.FirebaseServices
 import com.discutions.app.models.UserPreferences
+import com.discutions.app.services.FCMService
 
 class LoginController(val preferences: UserPreferences) {
       var email:String = "";
@@ -23,15 +24,24 @@ class LoginController(val preferences: UserPreferences) {
       fun loginWithEmailAndPassword(listener: LoginStateListerner){
           listener.onLoading(true);
           firebaseServices.loginWithEmailAndPassword(email, password){
-              result->
-              if(result?.errorMessage!=null){
-                  listener.onLoginFailed(result.errorMessage);
+              userResult->
+              if(userResult?.errorMessage!=null){
+                  listener.onLoading(false);
+                  listener.onLoginFailed(userResult.errorMessage);
               }else{
-                println("USER ID: ${result?.user?.uid}");
-                  preferences.userId=result?.user?.uid;
-                  listener.onLoginSuccess("${result?.user?.email}");
+                  firebaseServices.addUser(userResult?.user?.uid.toString()) { result ->
+                        preferences.userId=userResult?.user?.uid;
+                        preferences.email=userResult?.user?.email;
+                      if (result != "exist") {
+                            listener.onLoading(false);
+                            listener.onLoginSuccess(false);
+                        } else {
+                            listener.onLoading(false);
+                            listener.onLoginSuccess(true);
+                        }
+                  };
               }
-              listener.onLoading(false);
+
           }
     }
     fun loginWithGoogle(idToken: String,listener: LoginStateListerner) {
@@ -42,8 +52,16 @@ class LoginController(val preferences: UserPreferences) {
            result.fold(
                onSuccess = {user->
                    if(user!=null){
-                       preferences.isLogegd=true;
-                       listener.onLoginSuccess("${user.displayName}");
+                       preferences.userId=user.uid
+                       preferences.email=user.email
+                       firebaseServices.addUser(user.uid) { result ->
+                           if (result != "exist") {
+
+                               listener.onLoginSuccess(false);
+                           } else {
+                               listener.onLoginSuccess(true);
+                           }
+                       };
                    }else{
                        listener.onLoginFailed("User not found or not exist")
                    }

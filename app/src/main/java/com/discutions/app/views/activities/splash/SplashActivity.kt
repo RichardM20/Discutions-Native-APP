@@ -22,7 +22,7 @@ class SplashActivity : ComponentActivity() {
     private fun redirect(){
 
         Timer().schedule(timerTask {
-            if(_prefs.isLogegd==false){
+            if(_prefs.isLogged==false){
                 startActivity(Intent(applicationContext, LoginActivity::class.java))
             }else{
                 startActivity(Intent(applicationContext, DashboardActivity::class.java))

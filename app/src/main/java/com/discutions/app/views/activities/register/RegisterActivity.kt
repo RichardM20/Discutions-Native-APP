@@ -8,10 +8,12 @@ import com.discutions.app.controllers.RegisterController
 
 import com.discutions.app.databinding.ActivityRegisterBinding
 import com.discutions.app.interfaces.RegisterStateListener
+import com.discutions.app.models.UserPreferences
 import com.discutions.app.utils.GenericDialog
 
 import com.discutions.app.utils.GenericToast
 import com.discutions.app.utils.LoadingDialog
+import com.discutions.app.views.activities.complete.CompleteProfileActivity
 import com.discutions.app.views.activities.dashboard.DashboardActivity
 import com.discutions.app.views.activities.login.LoginActivity
 
@@ -20,11 +22,12 @@ class RegisterActivity : ComponentActivity(), RegisterStateListener {
     private lateinit var _binding: ActivityRegisterBinding
 
     private lateinit var  _loadingDialog: LoadingDialog;
-    private val  _registerController:RegisterController=RegisterController();
+    private lateinit var  _registerController:RegisterController;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityRegisterBinding.inflate(layoutInflater)
+        _registerController = RegisterController(UserPreferences(this));
         setContentView(_binding.root)
         _loadingDialog= LoadingDialog(this, Dialog(this));
 
@@ -57,11 +60,15 @@ class RegisterActivity : ComponentActivity(), RegisterStateListener {
     }
 
 
-    override fun onRegisterSuccess() {
-        GenericToast.showToast(this,"Successful registration",true);
-        startActivity(Intent(applicationContext, DashboardActivity::class.java))
+    override fun onRegisterSuccess(userExist:Boolean) {
+        if(userExist){
+            startActivity(Intent(applicationContext, DashboardActivity::class.java))
+        }else{
+            startActivity(Intent(applicationContext, CompleteProfileActivity::class.java))
+        }
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         finish();
+
     }
 
     override fun onLoading(showLoading: Boolean) {

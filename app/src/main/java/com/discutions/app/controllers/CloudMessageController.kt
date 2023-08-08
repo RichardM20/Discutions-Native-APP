@@ -22,33 +22,15 @@ import com.google.firebase.messaging.RemoteMessage
 
 const val  CHANNEL_ID="NOTIFICATION_CHANNEL";
 const val CHANNEL_NAME="com.discutions.app"
-class PushNotificationFirebaseService(context: Context) : FirebaseMessagingService() {
+class PushNotificationFirebaseService() : FirebaseMessagingService() {
 
-        private val preferences = UserPreferences(context);
-    fun getNotification(){
-       FirebaseMessaging.getInstance().token.addOnCompleteListener {
-            result->
-            if(result.isSuccessful){
-                if(preferences.tokenFCM!=result.result.toString()){
-                    preferences.tokenFCM=result.result.toString();
-
-
-                }else{
-                    println("already saved token");
-                }
-
-                print("prefs fcm: ${preferences.tokenFCM}");
-            }
-
-        }
-    }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
 
      try {
         if(remoteMessage.notification!=null){
             println("notification: ${remoteMessage.notification?.body}");
-            showNotification(remoteMessage.notification!!.title!!, remoteMessage.notification!!.body!!);
+
         }
 
      }catch(e:Exception){
@@ -73,10 +55,11 @@ class PushNotificationFirebaseService(context: Context) : FirebaseMessagingServi
         }
 
         var builder: NotificationCompat.Builder = NotificationCompat.Builder(applicationContext,CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.discussion)
             .setAutoCancel(false)
             .setVibrate(longArrayOf(1000,1000,1000,1000))
             .setOnlyAlertOnce(true)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent);
 
         builder= builder.setContent(getRemoteView(title,content));

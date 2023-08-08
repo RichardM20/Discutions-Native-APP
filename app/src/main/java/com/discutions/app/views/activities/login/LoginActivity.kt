@@ -3,6 +3,7 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.BoringLayout
 import android.text.method.PasswordTransformationMethod
 import android.view.MotionEvent
 import androidx.activity.ComponentActivity
@@ -96,11 +97,19 @@ class LoginActivity : ComponentActivity(), LoginStateListerner {
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
     }
-    override fun onLoginSuccess(username: String?) {
+    override fun onLoginSuccess(haveAccount:Boolean) {
 //        GenericToast.showToast(this,"Welcome $username",true);
-        startActivity(Intent(applicationContext, CompleteProfileActivity::class.java))
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        finish();//finalizamos
+        if(haveAccount){
+            startActivity(Intent(applicationContext, DashboardActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            finish();
+        }else{
+            startActivity(Intent(applicationContext, CompleteProfileActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            finish();
+        }
+
+
     }
 
     override fun onLoading(showLoading: Boolean) {

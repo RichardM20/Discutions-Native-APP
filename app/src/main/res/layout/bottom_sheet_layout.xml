@@ -31,13 +31,14 @@
             android:fontFamily="@font/inter_regular"
             android:hint="@string/enter_a_comment_text"
             android:inputType="textMultiLine"
+            android:minHeight="45dp"
             android:minLines="1"
             android:maxLines="3" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/commentButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:text="@string/comment_text"
             android:background="@drawable/button_shadow"
             android:textColor="@color/default_text_dark_color"

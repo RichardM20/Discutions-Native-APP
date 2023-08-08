@@ -45,6 +45,7 @@
 
     <!--credentials-->
     <string name="default_client_web_id">968779206986-606peom2r5vetnf9p41pfpc4a0av3g0b.apps.googleusercontent.com</string>
+    <string name="fcm_api_key">AAAA4Y-9kUo:APA91bFpnO-3hOMi7_T3616lwyd52F2UkTksWkiseZjbDJ3sAXcffTVCXpRIUYLfOqM1siUcZESVPq97jW65cjeIsQydyz725DcwEKx_TclNlOnUiwLVZ90kvxPwZ3unchyucROZ7X39</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_home">Home</string>
@@ -58,5 +59,12 @@
     <string name="password_text">Password</string>
     <string name="email_text">Email</string>
     <string name="title_activity_complete_profile">CompleteProfileActivity</string>
+    <string name="complete_profile_information_text">Before continuing, you need to fill out this information so that users can view your profile correctly.</string>
+    <string name="welcome_text">Welcome!</string>
+    <string name="male_text">Male</string>
+    <string name="female_text">Female</string>
+    <string name="presentation_text">Presentation</string>
+    <string name="gender_text">Gender</string>
+    <string name="finish_text">Finish</string>
 
 </resources>
