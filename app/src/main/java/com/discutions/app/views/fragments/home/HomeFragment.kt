@@ -15,6 +15,7 @@ import com.discutions.app.interfaces.OnDataPostsListener
 import com.discutions.app.models.CommentsData
 import com.discutions.app.models.PostData
 import com.discutions.app.models.UserPreferences
+import com.discutions.app.services.FCMService
 import com.discutions.app.utils.GenericToast
 import com.discutions.app.utils.LoadingDialog
 import com.discutions.app.views.adapters.HomeFragmentAdapter
@@ -81,8 +82,8 @@ class HomeFragment : Fragment(), OnDataPostsListener {
         modal.show(childFragmentManager, modal.tag)
     }
 
-    override fun onLikeSuccess() {
-            println("success process to like post");
+    override fun onLikeSuccess( ) {
+             println("success liked");
     }
 
 }

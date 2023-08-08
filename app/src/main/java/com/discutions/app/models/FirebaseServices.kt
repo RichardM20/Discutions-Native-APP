@@ -78,7 +78,67 @@ class FirebaseServices {
                }
             }
     }
-
+    fun post(postData: PostData, callback: (String) -> Unit){
+        val post = hashMapOf(
+            "uidUser" to postData.uidUser,
+            "username" to postData.username,
+            "uidPost" to postData.uidPost,
+            "fcmToken" to postData.fcmToken,
+            "comments" to postData.comments,
+            "likes" to postData.likes,
+            "post" to postData.post,
+            "publishedAt" to postData.publishedAt
+        )
+        val collectionReference = _firebaseFirestore.collection("post")
+        collectionReference.add(post)
+            .addOnSuccessListener { documentReference ->
+                val postId = documentReference.id
+                collectionReference.document("${postId}")
+                    .update("uidPost", postId)
+                    .addOnCompleteListener { updateTask ->
+                        if (updateTask.isSuccessful) {
+                            callback("success")
+                        } else {
+                           callback(updateTask.exception?.message.toString());
+                        }
+                    }
+            }
+            .addOnFailureListener { exception ->
+               callback(exception.message.toString());
+            }
+    }
+    fun setNotification(uidUser:String,notification:NotificationsData, callback: (String) -> Unit){
+        val notification = hashMapOf(
+            "title" to notification.title,
+            "body" to notification.body,
+            "emittedAt" to notification.emittedAt,
+        )
+        _firebaseFirestore.collection("notifications")
+            .document("${uidUser}")
+            .set(notification)
+            .addOnCompleteListener {
+                result->
+                if(result.isSuccessful){
+                    callback("success")
+                }else{
+                    callback(result.exception?.message.toString());
+                }
+            }
+    }
+    fun getAllNotifications(onSuccess:(List<NotificationsData>)->Unit, failed:(String)->Unit){
+        _firebaseFirestore.collection("posts")
+            .addSnapshotListener { snapshots, error ->
+                if(error!=null){
+                    failed("Failed");
+                    return@addSnapshotListener;
+                }
+                val notifications = snapshots?.documents?.mapNotNull {
+                        doc->
+                    doc.toObject(NotificationsData::class.java);
+                }?: emptyList();
+                onSuccess(notifications);
+            }
+    }
     fun getAllPosts(onSuccess:(List<PostData>)->Unit, failed:(String)->Unit){
         _firebaseFirestore.collection("posts")
             .addSnapshotListener { snapshots, error ->

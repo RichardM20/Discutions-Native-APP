@@ -1,15 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:background="@color/grey100"
+    android:paddingVertical="10dp"
     android:layout_height="match_parent"
     tools:context=".views.fragments.create.CreateFragment">
 
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_bold"
+        android:text="@string/post_what_you_think"
+        android:textColor="@color/primary_dark_color"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:layout_marginTop="12dp"
+        android:textAlignment="textStart"
+        android:fontFamily="@font/inter_regular"
+        android:text="@string/remember_that_the_objective_of_the_debate_application_is_precisely_that_to_debate_do_not_stop_there_is_no_limitation"
+        android:textColor="@color/default_text_light_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:ignore="SmallSp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/fieldPost"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_button2"
+        android:focusable="true"
+        android:fontFamily="@font/inter_regular"
+        android:hint="@string/write_your_post"
+        android:inputType="textMultiLine"
+        android:maxLines="10"
+        android:minLines="3"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/buttonPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_shadow"
+        android:fontFamily="@font/inter_semi_bold"
+        android:text="@string/post"
+        android:textColor="@color/default_text_dark_color"
+        android:textSize="16sp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

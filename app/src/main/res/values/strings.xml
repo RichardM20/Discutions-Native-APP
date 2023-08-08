@@ -66,5 +66,9 @@
     <string name="presentation_text">Presentation</string>
     <string name="gender_text">Gender</string>
     <string name="finish_text">Finish</string>
+    <string name="post_what_you_think">post what you think</string>
+    <string name="remember_that_the_objective_of_the_debate_application_is_precisely_that_to_debate_do_not_stop_there_is_no_limitation">Remember that the objective of the debate application is precisely that, to debate. Do not stop, there is no limitation.</string>
+    <string name="write_your_post">Write your post</string>
+    <string name="post">Post</string>
 
 </resources>

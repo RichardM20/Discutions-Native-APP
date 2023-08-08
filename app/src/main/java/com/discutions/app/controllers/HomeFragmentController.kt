@@ -5,6 +5,7 @@ import com.discutions.app.interfaces.OnDataUserState
 import com.discutions.app.models.CommentsData
 import com.discutions.app.models.FirebaseServices
 import com.discutions.app.models.LikeData
+import com.discutions.app.models.NotificationsData
 import com.discutions.app.models.UserPreferences
 import com.discutions.app.services.FCMService
 import com.google.firebase.Timestamp
@@ -43,6 +44,30 @@ class HomeFragmentController(private val userPreferences: UserPreferences){
         }, 1000)
 
     }
+
+    private fun sendNotification(token:String, title:String, message:String){
+       try {
+           FCMService.sendNotification(token, title,message) { result ->
+               if (result != "success") {
+                   firebaseServices.setNotification(userPreferences.userId!!, NotificationsData(
+                       title,
+                       message,
+                       Timestamp.now()
+                   )
+                   ){
+                           task->
+                       if(task!="success"){
+                           println("success set notification in collection");
+                       }else{
+                           println("notification ex: $task");
+                       }
+                   }
+               }
+           }
+       }catch(e:Exception){
+           println("Exception sendNotification: $e");
+       }
+    }
     fun like(token:String,postId: String, listener: OnDataPostsListener){
         try {
             firebaseServices.likeToPost(
@@ -54,16 +79,7 @@ class HomeFragmentController(private val userPreferences: UserPreferences){
             ){
                 result->
                 if(result=="success"){
-                   try {
-                       FCMService.sendNotification(
-                           token,
-                           "New interaction",
-                           "${userPreferences.username} has indicated that he liked your post."
-                       );
-                   }catch (e:Exception){
-                       println(e);
-                   }
-                    listener.onLikeSuccess();
+                   sendNotification(token, "New interaction","${userPreferences.username} liked your post")
                 }else{
                     listener.onDataFetchFailure(result);
                 }
@@ -90,16 +106,7 @@ class HomeFragmentController(private val userPreferences: UserPreferences){
               ){
                       result->
                   if(result=="success"){
-                      try {
-                          FCMService.sendNotification(
-                              token,
-                              "New interaction",
-                              "${userPreferences.username} has indicated that he liked your post."
-                          );
-                      }catch (e:Exception){
-                          println(e);
-                      }
-                      listener.onSuccess();
+                      sendNotification(token, "New interaction","${userPreferences.username} has commented on your discussion")
                   }else{
                       listener.onFailed(result);
                   }
