@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="secondary_color">#F4CC00</color>
+    <color name="secondary_color50">#9CF4CC00</color>
     <color name="primary_dark_color">#039E7E</color>
     <color name="primary_dark_color_50">#DC039E7E</color>
     <color name="primary_light_color">#00BD96</color>
@@ -10,4 +11,6 @@
     <color name="default_text_dark_color">#FFFFFFFF</color>
     <color name="grey100">#F1F1F1F1</color>
     <color name="grey_color">#FF7C7C7C</color>
+    <color name="bottom_nav_icon_color_selector">#E40B0B</color>
+    <color name="bottom_nav_background_color">#FFFFFF</color> <!-- Fondo general del BottomNavigationView -->
 </resources>

@@ -89,7 +89,7 @@ class FirebaseServices {
             "post" to postData.post,
             "publishedAt" to postData.publishedAt
         )
-        val collectionReference = _firebaseFirestore.collection("post")
+        val collectionReference = _firebaseFirestore.collection("posts")
         collectionReference.add(post)
             .addOnSuccessListener { documentReference ->
                 val postId = documentReference.id
@@ -107,26 +107,31 @@ class FirebaseServices {
                callback(exception.message.toString());
             }
     }
-    fun setNotification(uidUser:String,notification:NotificationsData, callback: (String) -> Unit){
-        val notification = hashMapOf(
+    fun setNotification(notification:NotificationsData, callback: (String) -> Unit){
+        println("set notification()");
+        val notify = hashMapOf(
+            "uidNotification" to notification.uidNotification,
             "title" to notification.title,
             "body" to notification.body,
             "emittedAt" to notification.emittedAt,
         )
-        _firebaseFirestore.collection("notifications")
-            .document("${uidUser}")
-            .set(notification)
+        _firebaseFirestore
+            .collection("notifications")
+            .add(notify)
             .addOnCompleteListener {
                 result->
                 if(result.isSuccessful){
+
                     callback("success")
                 }else{
                     callback(result.exception?.message.toString());
                 }
             }
     }
+
     fun getAllNotifications(onSuccess:(List<NotificationsData>)->Unit, failed:(String)->Unit){
-        _firebaseFirestore.collection("posts")
+        _firebaseFirestore
+            .collection("notifications")
             .addSnapshotListener { snapshots, error ->
                 if(error!=null){
                     failed("Failed");
@@ -134,7 +139,7 @@ class FirebaseServices {
                 }
                 val notifications = snapshots?.documents?.mapNotNull {
                         doc->
-                    doc.toObject(NotificationsData::class.java);
+                        doc.toObject(NotificationsData::class.java);
                 }?: emptyList();
                 onSuccess(notifications);
             }

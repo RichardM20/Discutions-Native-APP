@@ -8,7 +8,7 @@ interface OnDataPostsListener {
     fun onLikeSuccess();
     fun onDataFetchSuccess(postList:List<PostData>);
     fun onDataFetchFailure(errorMessage: String);
-    fun onTapCommentIcon(fcmToken:String,comments: List<CommentsData>, postId:String);
-    fun onTapLike(fcmToken:String,postId:String);
+    fun onTapCommentIcon(post: PostData);
+    fun onTapLike(post:PostData);
 
 }

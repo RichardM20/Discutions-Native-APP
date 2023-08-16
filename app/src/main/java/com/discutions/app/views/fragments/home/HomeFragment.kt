@@ -68,16 +68,17 @@ class HomeFragment : Fragment(), OnDataPostsListener {
        GenericToast.showToast(requireContext(),errorMessage,false);
     }
 
-    override fun onTapLike(fcmToken:String,postId: String) {
-        _fragmentController.like(fcmToken,postId,this);
+    override fun onTapLike(post:PostData) {
+        _fragmentController.like( post.fcmToken,post.uidUser,post.uidPost,this);
     }
-    override fun onTapCommentIcon(fcmToken:String, comments: List<CommentsData>, postId:String) {
+    override fun onTapCommentIcon(post: PostData) {
         val bundle = Bundle();
         val modal = FullScreenBottomSheetFragment();
         //
-        bundle.putSerializable("comments_data_list",ArrayList(comments));//pasamos los datos por medio del bundle
-        bundle.putString("postId",postId)
-        bundle.putString("tokenFCM",fcmToken)
+        bundle.putSerializable("comments_data_list",ArrayList(post.comments));//pasamos los datos por medio del bundle
+        bundle.putString("postId",post.uidPost)
+        bundle.putString("tokenFCM",post.fcmToken)
+        bundle.putString("uidUser",post.uidUser)
         modal.arguments=bundle;
         modal.show(childFragmentManager, modal.tag)
     }

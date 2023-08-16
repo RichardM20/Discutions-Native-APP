@@ -30,11 +30,12 @@ data class PostData(
     constructor() : this("","","", Timestamp.now(), "", "", emptyList(), emptyList())
 }
 data class NotificationsData(
+    val uidNotification:String="",
     val title: String="",
     val body: String="",
     val emittedAt: Timestamp= Timestamp.now(),
 ){
-    constructor():this("","", Timestamp.now());
+    constructor():this("","","", Timestamp.now());
 }
 data class CommentsData(
     val uidUser:String="",

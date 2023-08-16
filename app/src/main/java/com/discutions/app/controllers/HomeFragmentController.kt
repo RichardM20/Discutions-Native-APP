@@ -45,18 +45,20 @@ class HomeFragmentController(private val userPreferences: UserPreferences){
 
     }
 
-    private fun sendNotification(token:String, title:String, message:String){
+    private fun sendNotification(uidUserPost:String,token:String, title:String, message:String){
        try {
            FCMService.sendNotification(token, title,message) { result ->
-               if (result != "success") {
-                   firebaseServices.setNotification(userPreferences.userId!!, NotificationsData(
-                       title,
-                       message,
-                       Timestamp.now()
-                   )
+               if (result == "success") {
+                   firebaseServices.setNotification(
+                       NotificationsData(
+                           uidUserPost,
+                            title,
+                            message,
+                            Timestamp.now()
+                        )
                    ){
                            task->
-                       if(task!="success"){
+                       if(task=="success"){
                            println("success set notification in collection");
                        }else{
                            println("notification ex: $task");
@@ -68,7 +70,7 @@ class HomeFragmentController(private val userPreferences: UserPreferences){
            println("Exception sendNotification: $e");
        }
     }
-    fun like(token:String,postId: String, listener: OnDataPostsListener){
+    fun like(token:String,uidUserPost: String,postId: String, listener: OnDataPostsListener){
         try {
             firebaseServices.likeToPost(
                 LikeData(
@@ -79,7 +81,8 @@ class HomeFragmentController(private val userPreferences: UserPreferences){
             ){
                 result->
                 if(result=="success"){
-                   sendNotification(token, "New interaction","${userPreferences.username} liked your post")
+                    println("succes to like");
+                   sendNotification(uidUserPost, token, "New interaction","${userPreferences.username} liked your post")
                 }else{
                     listener.onDataFetchFailure(result);
                 }
@@ -90,7 +93,7 @@ class HomeFragmentController(private val userPreferences: UserPreferences){
             listener.onDataFetchFailure("Couldn't like the post");
         }
     }
-    fun comment(token:String,comment:String, postId:String, listener: OnCommentListener){
+    fun comment(uidUserPost:String,token:String,comment:String, postId:String, listener: OnCommentListener){
       if(comment.isEmpty()){
           println("Empty");
       }else{
@@ -106,7 +109,7 @@ class HomeFragmentController(private val userPreferences: UserPreferences){
               ){
                       result->
                   if(result=="success"){
-                      sendNotification(token, "New interaction","${userPreferences.username} has commented on your discussion")
+                      sendNotification(uidUserPost,token, "New interaction","${userPreferences.username} has commented on your discussion")
                   }else{
                       listener.onFailed(result);
                   }

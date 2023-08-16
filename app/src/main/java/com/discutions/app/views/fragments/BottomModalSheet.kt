@@ -31,6 +31,7 @@ class FullScreenBottomSheetFragment : BottomSheetDialogFragment(), OnCommentList
     private lateinit var preferences: UserPreferences;
     private var postID:String="";
     private var tokenFCM:String=""
+    private var uidUser:String=""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +43,7 @@ class FullScreenBottomSheetFragment : BottomSheetDialogFragment(), OnCommentList
         commentList = arguments?.getSerializable("comments_data_list") as ArrayList<CommentsData>;
         postID =arguments?.getString("postId").toString();
         tokenFCM =arguments?.getString("tokenFCM").toString();
+        uidUser =arguments?.getString("uidUser").toString();
         recyclerView= view.findViewById(R.id.commentContentRecycleView);
         recyclerView.layoutManager= LinearLayoutManager(context);
         //pasamos los datos al adapter
@@ -64,7 +66,7 @@ class FullScreenBottomSheetFragment : BottomSheetDialogFragment(), OnCommentList
     private fun commentButtonEvent(view: View){
         val commentField = view.findViewById<TextInputEditText>(R.id.commentField);
         view.findViewById<Button>(R.id.commentButton).setOnClickListener {
-               _fragmentController.comment(tokenFCM,commentField.text.toString(), postID,this);
+               _fragmentController.comment(uidUser, tokenFCM,commentField.text.toString(), postID,this);
         }
     }
 

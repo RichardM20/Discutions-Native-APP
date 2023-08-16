@@ -48,10 +48,10 @@ class HomeFragmentAdapter(private val uidUser:String,private val posts:List<Post
 
 
         holder.itemView.findViewById<ImageButton>(R.id.commentIcon).setOnClickListener {
-            listener.onTapCommentIcon(post.fcmToken, post.comments, postId = post.uidPost);
+            listener.onTapCommentIcon(post);
         }
         holder.itemView.findViewById<ImageButton>(R.id.heartIcon).setOnClickListener {
-            listener.onTapLike(post.fcmToken,post.uidPost);
+            listener.onTapLike(post);
         }
         //verificamos si existe el uid
         val hasLiked = post.likes.any { like-> like.uidUser==uidUser }

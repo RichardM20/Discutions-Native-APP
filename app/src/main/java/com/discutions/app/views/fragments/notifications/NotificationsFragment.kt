@@ -1,31 +1,59 @@
 package com.discutions.app.views.fragments.notifications
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.discutions.app.R
+import com.discutions.app.controllers.NotificationsController
+import com.discutions.app.interfaces.NotificationsDataState
+import com.discutions.app.models.NotificationsData
+import com.discutions.app.models.UserPreferences
+import com.discutions.app.utils.GenericToast
+import com.discutions.app.utils.LoadingDialog
+import com.discutions.app.views.adapters.HomeFragmentAdapter
+import com.discutions.app.views.adapters.NotificationFragmentAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [NotificationsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class NotificationsFragment : Fragment() {
-
+class NotificationsFragment : Fragment(), NotificationsDataState {
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var loadingDialog: LoadingDialog;
+    private lateinit var adapter: NotificationFragmentAdapter
+    private lateinit var  controller: NotificationsController;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_notifications, container, false)
+        val view = inflater.inflate(R.layout.fragment_notifications, container, false);
+        recyclerView = view.findViewById<RecyclerView>(R.id.notificationsRecycleView);
+        recyclerView.layoutManager= LinearLayoutManager(context);
+        adapter = NotificationFragmentAdapter(emptyList());
+        recyclerView.adapter=adapter;
+        controller= NotificationsController(UserPreferences(requireContext()));
+        loadingDialog=LoadingDialog(requireContext(), Dialog(requireContext()));
 
+        controller.getNotifications(this);
         return view;
+    }
+
+    override fun onLoading(isLoading: Boolean) {
+        if(isLoading){
+            loadingDialog.showLoadingDialog("Loading");
+        }else{
+            loadingDialog.hideLoadingDialog();
+        }
+    }
+
+    override fun onSuccess(notifications: List<NotificationsData>) {
+        adapter= NotificationFragmentAdapter(notifications);
+        recyclerView.adapter=adapter;
+    }
+
+    override fun onFailed(errorMessage: String) {
+        GenericToast.showToast(requireContext(),errorMessage,false);
     }
 
 

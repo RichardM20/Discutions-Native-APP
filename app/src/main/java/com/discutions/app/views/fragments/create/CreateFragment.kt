@@ -2,11 +2,13 @@ package com.discutions.app.views.fragments.create
 
 import android.app.Dialog
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.discutions.app.R
 import com.discutions.app.controllers.CreateController
 import com.discutions.app.interfaces.PostState
@@ -19,7 +21,7 @@ import com.google.android.material.textfield.TextInputEditText
 class CreateFragment : Fragment(), PostState {
     private lateinit var createController: CreateController;
     private lateinit var loadingDialog: LoadingDialog;
-
+    private lateinit var  post:TextInputEditText;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +35,11 @@ class CreateFragment : Fragment(), PostState {
     }
 
     private fun postEvent(view: View){
-        createController.post= view.findViewById<TextInputEditText>(R.id.fieldPost).text.toString();
+         post = view.findViewById<TextInputEditText>(R.id.fieldPost);
+
         view.findViewById<Button>(R.id.buttonPost).setOnClickListener {
-            if(createController.post.isEmpty()){
+           createController.post=post.text.toString();
+            if(createController.post.length<3){
                 GenericDialog.showDialog(requireContext(),"Information","Your post must contain at least 3 characters.");
             }else{
                 createController.post(this);
@@ -53,9 +57,15 @@ class CreateFragment : Fragment(), PostState {
 
     override fun onSuccess() {
        GenericToast.showToast(requireContext(),"Posted discussion", true);
+        post.setText("");
+        requireActivity().supportFragmentManager.popBackStackImmediate(
+            R.id.nav_home,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
     }
 
     override fun onFailed(errorMessage: String) {
        GenericDialog.showDialog(requireContext(),"Failed",errorMessage);
+
     }
 }
